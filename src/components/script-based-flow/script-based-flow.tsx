@@ -16,7 +16,7 @@
  * under the License.
  */
 import { File } from "@babel/types";
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { ScriptEditor } from "./script-editor";
@@ -25,7 +25,12 @@ import { setAstFromScriptEditor } from "../../store/actions/actions";
 import { GenerateCodeFromAst, ParseToAst } from "../mapper";
 import "../../styles/script-editor.less";
 
-export const ScriptBasedFlow: React.FC = () => {
+/**
+ * Script based flow component.
+ *
+ * @return {React.ReactElement}
+ */
+export const ScriptBasedFlow: FunctionComponent = () => {
 
     const dispatch: Dispatch<any> = useDispatch();
 
