@@ -17,6 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
+import { ScriptBasedFlow } from "./components/script-based-flow";
 
 /**
  * Main App component.
@@ -25,9 +26,12 @@ import React, { FunctionComponent, ReactElement } from "react";
  */
 export const App: FunctionComponent = (): ReactElement => {
     return (
-        <div className="App">
-            <header className="App-header">
+        <div className="app">
+            <header className="app-header">
             </header>
+            <div className="app-body">
+                <ScriptBasedFlow/>
+            </div>
         </div>
     );
 };
