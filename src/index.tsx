@@ -18,7 +18,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/app.less";
+import "./styles/index.less";
 import { Provider } from "react-redux";
 import { App } from "./app";
 import reportWebVitals from "./report-web-vitals";
