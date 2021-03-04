@@ -16,22 +16,11 @@
  * under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styles/app.less";
-import { Provider } from "react-redux";
-import { App } from "./app";
-import reportWebVitals from "./report-web-vitals";
-import { store } from "./store";
+/**
+ * Interface for the Authentication Step.
+ */
+export interface AuthenticationStep {
+    stepId: number,
+    authenticators: string[]
+}
 
-ReactDOM.render(
-    <Provider store={ store }>
-        <App />
-    </Provider>,
-    document.getElementById("root")
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -16,22 +16,15 @@
  * under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styles/app.less";
-import { Provider } from "react-redux";
-import { App } from "./app";
-import reportWebVitals from "./report-web-vitals";
-import { store } from "./store";
+import { combineReducers } from "redux";
+import { astReducer, stepsReducer } from "./reducers";
 
-ReactDOM.render(
-    <Provider store={ store }>
-        <App />
-    </Provider>,
-    document.getElementById("root")
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/**
+ * Combines all the reducers.
+ *
+ * @type {Reducer<any>} Root reducer to be used when creating the store.
+ */
+export const reducers = combineReducers({
+    astReducer: astReducer,
+    stepReducer: stepsReducer
+});
