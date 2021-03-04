@@ -16,4 +16,5 @@
  * under the License.
  */
 
-export * from "./Parser";
+export * from "./parser";
+export * from "./code-generator";
