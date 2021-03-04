@@ -21,7 +21,6 @@ import { ParseToAst } from "../../components/mapper";
 import { AstReducerStateStateInterface } from "../../models";
 import { ActionTypes, ReduxActions } from "../actions";
 
-
 /**
  * Ast Reducer initial state.
  */
