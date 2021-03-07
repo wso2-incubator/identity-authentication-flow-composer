@@ -16,6 +16,21 @@
  * under the License.
  */
 
-export * from "./reducer-state";
-export * from "./step";
-export * from "./template";
+/**
+ * Interface for the Authentication Step.
+ */
+
+export interface TemplateInterface {
+    name: string,
+    defaultAuthenticators: any,
+    summary?: string,
+    preRequisites?: string[],
+    helpLink?: string,
+    code: string[],
+    defaultStepsDescription: any,
+    parametersDescription: any,
+    category: string,
+    title: string,
+    authenticationSteps: number
+}
+
