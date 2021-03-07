@@ -17,23 +17,35 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { ScriptBasedFlow } from "./components/script-based-flow";
-import { Sidebar } from "./core-components/sidebar";
+import { AiOutlineCopyrightCircle } from "react-icons/all";
+import { Template } from "./sidebar-template";
+import templates from "../../api/templates.json";
 
 /**
- * Main App component.
+ * Sidebar component.
  *
  * @return {React.ReactElement}
  */
-export const App: FunctionComponent = (): ReactElement => {
+export const Sidebar: FunctionComponent = () : ReactElement => {
+
     return (
-        <div className="app">
-            <header className="app-header">
-            </header>
-            <div className="app-body">
-                <Sidebar/>
-                <ScriptBasedFlow/>
+        <div className="sidebar">
+            <h3 className="sidebar-header">
+                Templates
+            </h3>
+            <div className="sidebar-options">
+                { templates.map((template: any) => (
+                    <Template
+                        key={ template.name }
+                        templateObject={ template }
+                    />
+                )) }
+            </div>
+            <div className="sidebar-bottom">
+                <AiOutlineCopyrightCircle className="copyright-icon"/>
+                2021 WSO2
             </div>
         </div>
     );
 };
+
