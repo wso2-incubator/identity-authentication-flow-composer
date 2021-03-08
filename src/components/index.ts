@@ -16,24 +16,4 @@
  * under the License.
  */
 
-import React, { FunctionComponent, ReactElement } from "react";
-import { ScriptBasedFlow } from "./components";
-import { Sidebar } from "./core-components/sidebar";
-
-/**
- * Main App component.
- *
- * @return {React.ReactElement}
- */
-export const App: FunctionComponent = (): ReactElement => {
-    return (
-        <div className="app">
-            <header className="app-header">
-            </header>
-            <div className="app-body">
-                <Sidebar/>
-                <ScriptBasedFlow/>
-            </div>
-        </div>
-    );
-};
+export * from "./script-based-flow";
