@@ -48,4 +48,3 @@ export const Sidebar: FunctionComponent = () : ReactElement => {
         </div>
     );
 };
-
