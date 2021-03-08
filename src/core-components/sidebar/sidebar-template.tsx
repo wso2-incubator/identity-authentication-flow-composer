@@ -105,4 +105,3 @@ export const Template: FunctionComponent<TemplateProps> = (props: TemplateProps)
         </div>
     );
 };
-
