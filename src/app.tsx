@@ -17,8 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { ScriptBasedFlow } from "./components";
-import { Sidebar } from "./core-components/sidebar";
+import { ScriptBasedFlow, Sidebar } from "./components";
 
 /**
  * Main App component.

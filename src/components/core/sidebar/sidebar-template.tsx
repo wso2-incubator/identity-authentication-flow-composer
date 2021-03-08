@@ -15,20 +15,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 import { File } from "@babel/types";
 import React, { FunctionComponent, ReactElement } from "react";
 import { BsGearFill, FiDatabase, FiLogIn, HiUsers } from "react-icons/all";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
-import templates from "../../api/templates.json";
-import { ParseToAst } from "../../components/mapper";
-import { TemplateInterface } from "../../models";
+import templates from "../../../api/templates.json";
+import { TemplateInterface } from "../../../models";
 import {
     setAstFromVisualEditor,
     setAttributesIdentifier,
     setAuthenticationStep,
     setSubjectIdentifier
-} from "../../store/actions/actions";
+} from "../../../store/actions/actions";
+import { ParseToAst } from "../../mapper";
 
 /**
  * Template component Prop types.
@@ -43,7 +44,7 @@ export interface TemplateProps {
 /**
  * Template component.
  *
- * @param {TemplateProps} props
+ * @param {TemplateProps} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */

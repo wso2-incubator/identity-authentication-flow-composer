@@ -16,5 +16,4 @@
  * under the License.
  */
 
-export * from "./script-based-flow";
-export * from "./core";
+export * from "./sidebar";
