@@ -18,3 +18,6 @@
 
 export * from "./parser";
 export * from "./code-generator";
+export * from "./adaptive-code-syntax";
+export * from "./edit-ast";
+export * from "./traverse-ast";
