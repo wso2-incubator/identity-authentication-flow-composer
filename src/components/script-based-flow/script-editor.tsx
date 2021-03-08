@@ -105,4 +105,3 @@ ScriptEditor.defaultProps = {
     theme: "vs-dark",
     width: "100%"
 };
-
