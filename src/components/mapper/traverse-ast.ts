@@ -326,4 +326,3 @@ export const GetSuccessFailurePath =
         }, scope, state, parentPath);
         return successPath;
     };
-
