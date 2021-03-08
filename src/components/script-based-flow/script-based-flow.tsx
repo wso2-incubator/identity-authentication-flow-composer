@@ -31,7 +31,7 @@ import "../../styles/script-editor.less";
  *
  * @return {React.ReactElement}
  */
-export const ScriptBasedFlow: FunctionComponent = () : ReactElement => {
+export const ScriptBasedFlow: FunctionComponent = (): ReactElement => {
 
     const dispatch: Dispatch<any> = useDispatch();
 
