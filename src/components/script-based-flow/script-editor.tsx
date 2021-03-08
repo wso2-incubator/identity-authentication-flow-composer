@@ -56,7 +56,7 @@ export interface ScriptEditorProps {
 /**
  * Script editor component.
  *
- * @param {ScriptEditorProps} props
+ * @param {ScriptEditorProps} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */
