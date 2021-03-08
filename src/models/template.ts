@@ -19,7 +19,6 @@
 /**
  * Interface for the Authentication Step.
  */
-
 export interface TemplateInterface {
     name: string,
     defaultAuthenticators: any,
@@ -33,4 +32,3 @@ export interface TemplateInterface {
     title: string,
     authenticationSteps: number
 }
-
