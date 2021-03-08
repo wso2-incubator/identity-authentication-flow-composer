@@ -17,7 +17,7 @@
  */
 
 import { File } from "@babel/types";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, ReactElement, useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { ScriptEditor } from "./script-editor";
@@ -31,7 +31,7 @@ import "../../styles/script-editor.less";
  *
  * @return {React.ReactElement}
  */
-export const ScriptBasedFlow: FunctionComponent = () => {
+export const ScriptBasedFlow: FunctionComponent = () : ReactElement => {
 
     const dispatch: Dispatch<any> = useDispatch();
 
