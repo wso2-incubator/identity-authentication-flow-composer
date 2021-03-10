@@ -1,0 +1,217 @@
+/**
+ * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/**
+ * Common styles for all react modals
+ */
+
+body.modalOpened #root {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    filter: blur(0.05rem);
+    overflow:hidden;
+    opacity: 1;
+}
+
+.modal {
+    position: absolute;
+    background-color: #fff;
+    flex-direction: column;
+    display: flex;
+    color: #313234;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 5;
+}
+
+.modal-header {
+    color: rgba(0,0,0,.87);
+    font-weight: 500;
+    border-top-right-radius: 3px;
+    border-bottom: 1px solid rgba(34,36,38,.15);
+    font-size: 1.42857143rem;
+    padding: 1.5rem 1.5rem 1rem;
+    overflow: hidden;
+    min-height: 30px;
+}
+
+.modal-subheader {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #9c9c9c;
+    width: 600px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.modal-button-container {
+    border-top: 1px solid rgba(34,36,38,.15);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    font-size: 1.43em;
+    line-height: 1.3em;
+    min-height: 1.7em;
+    padding: 20px 30px 20px 30px;
+}
+
+
+/**
+ * Styles for Component Selector modal
+ */
+
+.component-selector {
+    border-radius: 4px;
+    position: fixed;
+    top: 25vh;
+    left: 32vw;
+    right: 32vw;
+    bottom: 30vh;
+    max-height: 85vh;
+    box-shadow: 1px 1px 5px #0f1011;
+}
+
+.modal-action-card-container {
+    flex-direction: row;
+    display: flex;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    padding-left: 2vw;
+}
+
+
+/**
+ * Styles for Condition List modal
+ */
+
+.condition-list {
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    right: 25%;
+    border-radius: 4px;
+}
+
+.condition-modal-content-container {
+    overflow: scroll;
+}
+
+.condition-group {
+    padding-left: 2vw;
+    margin: 2vh 0 2vh 0;
+}
+
+.condition-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.condition-description {
+    margin-top: 0;
+    color: #acadaf;
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.condition-input {
+    width: 28vw;
+}
+
+.condition-selector {
+    margin-bottom: 10px;
+}
+
+
+/**
+ * Styles for Step Configuration modal
+ */
+
+.step-config-modal {
+    position: fixed;
+    top: 13vh;
+    left: 23vw;
+    right: 23vw;
+    max-height: 85vh;
+    flex-direction: column;
+    display: flex;
+    box-shadow: 1px 1px 5px #0f1011;
+    border-radius: 4px;
+}
+
+.step-config-container {
+    overflow: scroll;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.step-config-container::-webkit-scrollbar {
+    display: none;
+}
+
+.step-config-menu {
+    padding: 1.25rem 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    height: 5vh;
+}
+
+.authenticators-header {
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    font-size: 1.14285714rem;
+}
+
+.authenticators-section-header {
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+    font-weight: 500;
+}
+
+.authenticators-section-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 1.5rem;
+}
+
+
+
+
