@@ -92,7 +92,7 @@ export const AddSuccessFailureStepsBefore = (ast: File, beforeStep:string) : Fil
  *
  * @return {[File, number]} New ast, New step id
  */
-export const AddSuccessFailureStepsBeforeCondition = (ast: File, condition:string) : [File, number] => {
+export const AddSuccessFailureStepsBeforeCondition = (ast: File, condition:string) : [File, string] => {
     const [lastStep, pathBefore] = GetConditionPathWithLastStep(ast, condition);
     traverse(ast, {
         CallExpression(path: any) {
