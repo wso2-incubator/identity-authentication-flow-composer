@@ -16,8 +16,22 @@
  * under the License.
  */
 
-export * from "./reducer-state";
-export * from "./step";
-export * from "./template";
-export * from "./endpoints";
+import { ApplicationEndpointsInterface } from "../models";
 
+const serverHost = "https://localhost:9443/t/carbon.super";
+
+/**
+ * Visual Editor component.
+ *
+ * @return {ApplicationEndpointsInterface}
+ */
+export const getApplicationsResourceEndpoints = () : ApplicationEndpointsInterface => {
+
+    return {
+        applications: `${serverHost}/api/server/v1/applications/`,
+        authenticators: `${serverHost}/api/server/v1/configs/authenticators`,
+        identityProviders: `${serverHost}/api/server/v1/identity-providers?filter=isEnabled eq "true"`,
+        templates: `${serverHost}/api/server/v1/applications/meta/adaptive-auth-templates`
+    };
+
+};
