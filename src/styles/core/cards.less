@@ -1,0 +1,113 @@
+/**
+ * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/**
+ * Styles for cards
+ */
+.action-card-container {
+    display: inline-block;
+    margin-right: 2vw;
+    width: 9.8vw;
+    height: 9.5vw;
+    border: 1px solid #e8e8e8;
+    box-shadow: none;
+}
+
+.action-card-container:hover {
+    box-shadow: 0 1px 3px 0 #d4d4d5;
+    cursor: pointer;
+}
+
+.action-card-image-container {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.action-card-bottom-container {
+    height: 50%;
+    width: 100%;
+}
+
+.action-card-bottom-text-container {
+    padding-inline: 10px;
+    text-align: center;
+}
+
+.action-card-heading {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3em;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.action-card-sub-heading{
+    font-size: .8rem;
+    color: #77787b;
+    margin-top: 5px;
+    line-height: 1rem;
+}
+
+.authenticator-wrapper {
+    width: 90px;
+    height: 120px;
+    margin: 9px 18px 9px 0;
+}
+
+.authenticator {
+    width: 90px;
+    height: 90px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.authenticator:hover:enabled {
+    box-shadow: 0 1px 3px 0 #d4d4d5,0 0 0 1px #d4d4d5;
+}
+
+.authenticator:disabled{
+    cursor: not-allowed;
+    background-color: transparent;
+    filter: grayscale(90%);
+}
+
+.unselect {
+    border: 1px solid #e8e8e8;
+}
+
+.select {
+    border: 0.124rem solid #ff5000;
+    background-color: rgba(255,80,0,0.07);
+}
+
+.authenticator-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    color: rgba(0,0,0,0.75);
+    font-weight: 400;
+    padding-top: 4px;
+    font-size: 1rem;
+}
