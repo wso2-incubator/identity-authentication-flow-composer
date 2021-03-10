@@ -24,7 +24,6 @@ import { ScriptEditor } from "./script-editor";
 import { AppState } from "../../store";
 import { setAstFromScriptEditor } from "../../store/actions/actions";
 import { GenerateCodeFromAst, ParseToAst } from "../mapper";
-import "../../styles/script-editor.less";
 
 /**
  * Script based flow component.
