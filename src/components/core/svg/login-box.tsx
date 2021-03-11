@@ -42,9 +42,9 @@ export const LoginBox: FunctionComponent<LoginBoxProps> = (props: LoginBoxProps)
         options
     } = props;
     
-    const Y = options.length*50;
-    const height = 780;
-    const viewBox = `0 0 526 ${height}`;
+    const Y: number = options.length*50;
+    const height: number = 780;
+    const viewBox: string = `0 0 526 ${height}`;
     
     return(
         <div className="svg-container">

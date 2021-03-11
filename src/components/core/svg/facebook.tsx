@@ -24,6 +24,7 @@ import React, { FunctionComponent, ReactElement } from "react";
  * @return {React.ReactElement}
  */
 export const Facebook: FunctionComponent = () : ReactElement => {
+
     return(
         <div className="svg-container">
             <svg

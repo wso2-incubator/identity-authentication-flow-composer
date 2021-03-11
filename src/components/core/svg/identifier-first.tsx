@@ -45,9 +45,9 @@ export const IdentifierFirst: FunctionComponent<IdentifierFirstProps> = (
     } = props;
     
     const Y: number = options.length * 40;
-    const height: number = 780+Y;
+    const height: number = 780 + Y;
     const viewBox: string = `0 0 526 ${height}`;
-    
+
     return(
         <div className="svg-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="300" height="370" viewBox={ viewBox }>
