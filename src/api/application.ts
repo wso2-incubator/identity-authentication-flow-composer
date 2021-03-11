@@ -54,7 +54,7 @@ export const getApplicationDetails = (appId:string|null) : Promise<any> => {
  */
 export const getAuthenticators = (type?:string) : Promise<any> => {
     return axios.get(
-        type==="idp"
+        type === "idp"
             ? getApplicationsResourceEndpoints().identityProviders
             : getApplicationsResourceEndpoints().authenticators,
         {
