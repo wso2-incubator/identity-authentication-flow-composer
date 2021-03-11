@@ -24,6 +24,7 @@ import React, { FunctionComponent, ReactElement } from "react";
  * @return {React.ReactElement}
  */
 export const Totp: FunctionComponent = () : ReactElement => {
+
     return(
         <div className="svg-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="240" viewBox="0 0 420 407">

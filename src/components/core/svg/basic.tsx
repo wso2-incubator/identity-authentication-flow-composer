@@ -42,9 +42,9 @@ export const Basic: FunctionComponent<BasicAuthenticatorProps> = (props: BasicAu
         options
     } = props;
     
-    const Y= options.length*50;
-    const height = 740+Y;
-    const viewBox = `0 0 526 ${height}`;
+    const Y: number = options.length * 50;
+    const height: number = 740 + Y;
+    const viewBox: string = `0 0 526 ${height}`;
     
     return(
         <div className="svg-container">

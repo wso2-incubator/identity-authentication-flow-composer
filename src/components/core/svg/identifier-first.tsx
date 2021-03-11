@@ -44,9 +44,10 @@ export const IdentifierFirst: FunctionComponent<IdentifierFirstProps> = (
         options 
     } = props;
     
-    const Y= options.length*40;
-    const height = 780+Y;
-    const viewBox = `0 0 526 ${height}`;
+    const Y: number = options.length * 40;
+    const height: number = 780+Y;
+    const viewBox: string = `0 0 526 ${height}`;
+    
     return(
         <div className="svg-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="300" height="370" viewBox={ viewBox }>

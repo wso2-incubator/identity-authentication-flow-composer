@@ -54,10 +54,10 @@ export const AuthenticationOptionButton: React.FC<AuthenticationOptionButtonProp
         y
     } = props;
 
-    const iconX = x+10;
-    const iconY = y+3;
-    const iconHeight = 30;
-    const iconWidth = 30;
+    const iconX: number = x + 10;
+    const iconY: number = y + 3;
+    const iconHeight: number = 30;
+    const iconWidth: number = 30;
 
     return(
         <g>

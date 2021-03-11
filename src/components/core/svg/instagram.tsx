@@ -24,6 +24,7 @@ import React, { FunctionComponent, ReactElement } from "react";
  * @return {React.ReactElement}
  */
 export const Instagram: FunctionComponent = () : ReactElement => {
+
     return(
         <div className="svgContainer">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -344,4 +345,5 @@ export const Instagram: FunctionComponent = () : ReactElement => {
             </svg>
         </div>
     );
+
 };
