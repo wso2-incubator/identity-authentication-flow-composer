@@ -42,7 +42,7 @@ export const LoginBox: FunctionComponent<LoginBoxProps> = (props: LoginBoxProps)
         options
     } = props;
     
-    const Y: number = options.length*50;
+    const Y: number = options.length * 50;
     const height: number = 780;
     const viewBox: string = `0 0 526 ${height}`;
     
@@ -112,4 +112,5 @@ export const LoginBox: FunctionComponent<LoginBoxProps> = (props: LoginBoxProps)
             </svg>
         </div>
     );
+
 };

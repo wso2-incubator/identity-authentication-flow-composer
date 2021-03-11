@@ -99,4 +99,5 @@ export const Totp: FunctionComponent = () : ReactElement => {
             </svg>
         </div>
     );
+
 };

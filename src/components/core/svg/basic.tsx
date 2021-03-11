@@ -192,4 +192,5 @@ export const Basic: FunctionComponent<BasicAuthenticatorProps> = (props: BasicAu
             </svg>
         </div>
     );
+
 };

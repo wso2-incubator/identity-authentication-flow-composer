@@ -24,6 +24,7 @@ import React, { FunctionComponent, ReactElement } from "react";
  * @return {React.ReactElement}
  */
 export const Google: FunctionComponent = () : ReactElement => {
+
     return(
         <div className="svg-container">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 268" 
@@ -437,4 +438,5 @@ export const Google: FunctionComponent = () : ReactElement => {
 
         </div>
     );
+
 };

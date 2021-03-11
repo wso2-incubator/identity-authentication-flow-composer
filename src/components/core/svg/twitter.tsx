@@ -334,4 +334,5 @@ export const Twitter: FunctionComponent = () : ReactElement => {
             </svg>
         </div>
     );
+
 };
