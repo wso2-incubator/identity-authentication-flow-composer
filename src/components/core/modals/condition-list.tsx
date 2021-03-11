@@ -16,16 +16,14 @@
  * under the License.
  */
 
-import { FormControl, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import React, { FunctionComponent, ReactElement, useState } from "react";
-import ReactModal from "react-modal";
-import Select from "react-select";
+import { Dropdown, Form, FormInput, Modal, Radio } from "semantic-ui-react";
 
 const roles = [
-    { label:"admin", value: "admin" },
-    { label:"manager", value: "manager" },
-    { label:"accountant", value: "accountant" },
-    { label:"everyone", value: "everyone" }
+    { key:"admin", text:"admin", value: "admin" },
+    { key:"manager", text:"manager", value: "manager" },
+    { key:"manager", text:"accountant", value: "accountant" },
+    { key:"manager", text:"everyone", value: "everyone" }
 ];
 
 /**
@@ -46,6 +44,13 @@ export interface ConditionsListProps {
     onCancel: ()=>void
 }
 
+/**
+ * Condition List Modal.
+ *
+ * @param {ConditionsListProps} props - Props injected to the component.
+ *
+ * @return {React.ReactElement}
+ */
 export const ConditionsList: FunctionComponent<ConditionsListProps> = (
     props: ConditionsListProps
 ) : ReactElement => {
@@ -62,82 +67,85 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
     const [minLoginAttempts, setMinLoginAttempts] :[any,any] = useState(3);
 
     return (
-        <ReactModal
-            isOpen={ isOpen }
+        <Modal
+            open={ isOpen }
             className="modal condition-list"
-            overlayClassName="overlay"
-            bodyOpenClassName="modalOpened"
         >
-            <div className="modal-header">
-                    Select Conditions
+            <Modal.Header>
+                Select Conditions
                 <div className="modal-subheader">Select a condition to configure the authentication flow.</div>
-            </div>
-            <div className="condition-modal-content-container">
-                <FormControl component="fieldset">
-                    <RadioGroup
-                        className="condition-group"
-                        aria-label="conditions"
-                        name="conditions1"
-                        value={ checkedCondition }
-                        onChange={ (event, value)=>setCheckedCondition(value) }
-                    >
-                        <div className="condition-container">
-                            <FormControlLabel value="hasRole" control={ <Radio /> } label="Has Role" />
-                            <p className="condition-description">
-                                Checking if the user is assigned to one of the given roles
-                            </p>
-                            { checkedCondition==="hasRole" &&
-                                <Select
-                                    options={ roles }
-                                    isMulti
-                                    onChange={ (options)=>
-                                        setSelectedRoles(options) }
-                                    value={ selectedRoles }
-                                    className="condition-selector"
+            </Modal.Header>
+
+            <Modal.Content>
+                <Form>
+                    <Form.Field>
+                        <Radio
+                            label="Has Role"
+                            name="radioGroup"
+                            value="hasRole"
+                            checked={ checkedCondition === "hasRole" }
+                            onChange={ ()=>setCheckedCondition("hasRole") }
+                        />
+                        <p className="condition-description">
+                            Checking if the user is assigned to one of the given roles
+                        </p>
+                        { checkedCondition==="hasRole" &&
+                            <Dropdown
+                                className="condition-input"
+                                placeholder="Select Roles"
+                                fluid multiple selection
+                                onChange={ (options)=>
+                                    setSelectedRoles(options) }
+                                options={ roles }
+                            />
+                        }
+                    </Form.Field>
+                    <Form.Field>
+                        <div className="wrapper-flex-raw">
+                            <Radio
+                                label="Is Exceed Invalid Attempts"
+                                name="radioGroup"
+                                value="isExceedInvalidAttempts"
+                                checked={ checkedCondition === "isExceedInvalidAttempts" }
+                                onChange={ ()=>setCheckedCondition("isExceedInvalidAttempts") }
+                            />
+                            { checkedCondition==="isExceedInvalidAttempts" &&
+                                <FormInput
+                                    className="text-input-login-attempts-no"
+                                    value={ minLoginAttempts }
+                                    onChange={ (event)=>setMinLoginAttempts(event.target.value) }
                                 />
                             }
                         </div>
-
-                        <div className="condition-container">
-                            <div>
-                                <FormControlLabel
-                                    value="isExceedInvalidAttempts"
-                                    control={ <Radio /> }
-                                    label="Is Exceed Invalid Attempts"
-                                />
-                                { checkedCondition==="isExceedInvalidAttempts" &&
-                                    <input
-                                        className="textInputLoginAttemptsNo"
-                                        value={ minLoginAttempts }
-                                        onChange={ (event)=>
-                                            setMinLoginAttempts(event.target.value)
-                                        }
-                                    />
+                        <p className="condition-description">
+                            Checking if the user exceeds given number of failed login attempts
+                        </p>
+                    </Form.Field>
+                    <Form.Field>
+                        <Radio
+                            label="Custom condition"
+                            name="radioGroup"
+                            value="custom"
+                            checked={ checkedCondition === "custom" }
+                            onChange={ ()=>setCheckedCondition("custom") }
+                        />
+                        <p className="condition-description">
+                            You can define a custom condition using this
+                        </p>
+                        { checkedCondition==="custom" &&
+                            <FormInput
+                                className="condition-input"
+                                placeholder="Condition name"
+                                onChange={
+                                    (event)=>setCustomConditionName(event.target.value)
                                 }
-                            </div>
-                            <p className="condition-description">
-                                Checking if the user exceeds given number of failed login attempts
-                            </p>
-                        </div>
+                            />
+                        }
+                    </Form.Field>
+                </Form>
+            </Modal.Content>
 
-                        <div className="condition-container">
-                            <FormControlLabel value="custom" control={ <Radio /> } label="Custom condition" />
-                            <p className="condition-description">You can define a custom condition using this</p>
-                            { checkedCondition==="custom" &&
-                                <input
-                                    className="condition-input"
-                                    placeholder={ "Condition name" }
-                                    onChange={ (event)=>
-                                        setCustomConditionName(event.target.value)
-                                    }
-                                />
-                            }
-                        </div>
-
-                    </RadioGroup>
-                </FormControl>
-            </div>
-            <div className="modal-button-container">
+            <Modal.Actions>
                 <button
                     className="primary-button float-right"
                     disabled={ checkedCondition==="custom" && customConditionName==="" }
@@ -156,12 +164,12 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                         Done
                 </button>
                 <button
-                    className="secondary-button"
+                    className="secondary-button float-left"
                     onClick={ ()=>onCancel() }
                 >
                         Cancel
                 </button>
-            </div>
-        </ReactModal>
+            </Modal.Actions>
+        </Modal>
     );
 };
