@@ -17,7 +17,7 @@
  */
 
 import _ from "lodash";
-import { ParseToAst } from "../../components/mapper";
+import { ParseToAst, begin } from "../../components";
 import { AstReducerStateStateInterface } from "../../models";
 import { ActionTypes, ReduxActions } from "../actions";
 
@@ -25,7 +25,7 @@ import { ActionTypes, ReduxActions } from "../actions";
  * Ast Reducer initial state.
  */
 const initialState: AstReducerStateStateInterface = {
-    ast: ParseToAst(""),
+    ast: ParseToAst(begin),
     changedFromVisualEditor: false
 };
 
