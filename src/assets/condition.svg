@@ -1,0 +1,25 @@
+<!--
+ * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<svg id="javascript" xmlns="http://www.w3.org/2000/svg" width="60" viewBox="0 0 53.535 34.416">
+    <circle id="Ellipse_100" data-name="Ellipse 100" cx="1.881" cy="1.881" r="1.881" transform="translate(32.363 15.61)" fill="#8b8b8b"/>
+    <circle id="Ellipse_101" data-name="Ellipse 101" cx="1.881" cy="1.881" r="1.881" transform="translate(17.318 15.61)" fill="#8b8b8b"/>
+    <circle id="Ellipse_102" data-name="Ellipse 102" cx="1.881" cy="1.881" r="1.881" transform="translate(24.841 15.61)" fill="#8b8b8b"/>
+    <path id="Path_311" data-name="Path 311" d="M145.912,163.12a1.914,1.914,0,0,1,1.912,1.912v7.648a5.743,5.743,0,0,0,5.736,5.736,1.912,1.912,0,0,0,0-3.824,1.914,1.914,0,0,1-1.912-1.912v-7.648a5.712,5.712,0,0,0-1.464-3.824,5.712,5.712,0,0,0,1.464-3.824v-7.648a1.914,1.914,0,0,1,1.912-1.912,1.912,1.912,0,1,0,0-3.824,5.743,5.743,0,0,0-5.736,5.736v7.648a1.914,1.914,0,0,1-1.912,1.912,1.912,1.912,0,1,0,0,3.824Z" transform="translate(-144 -144)" fill="#8b8b8b"/>
+    <path id="Path_312" data-name="Path 312" d="M323.824,172.68a1.914,1.914,0,0,1-1.912,1.912,1.912,1.912,0,0,0,0,3.824,5.743,5.743,0,0,0,5.736-5.736v-7.648a1.914,1.914,0,0,1,1.912-1.912,1.912,1.912,0,1,0,0-3.824,1.914,1.914,0,0,1-1.912-1.912v-7.648A5.743,5.743,0,0,0,321.912,144a1.912,1.912,0,1,0,0,3.824,1.914,1.914,0,0,1,1.912,1.912v7.648a5.712,5.712,0,0,0,1.464,3.824,5.712,5.712,0,0,0-1.464,3.824Z" transform="translate(-277.936 -144)" fill="#8b8b8b"/>
+</svg>

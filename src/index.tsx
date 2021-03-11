@@ -19,10 +19,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.less";
+import ReactModal from "react-modal";
 import { Provider } from "react-redux";
 import { App } from "./app";
 import reportWebVitals from "./report-web-vitals";
 import { store } from "./store";
+
+ReactModal.setAppElement("#root");
 
 ReactDOM.render(
     <Provider store={ store }>

@@ -16,33 +16,4 @@
  * under the License.
  */
 
-/**
- * Variables related to script based flow styles
- */
-@script-editor-header-height: 5%;
-@script-based-flow-width: 50%;
-@script-based-flow-height: 97.5%;
-
-/**
- * script based flow styles
- */
-.script-based-flow-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: @script-based-flow-width;
-    height: @script-based-flow-height;
-    border: 1px solid #49494c;
-}
-
-.script-based-flow-header {
-    display: flex;
-    flex-direction: row;
-    padding-left: 1rem;
-    border-bottom: 1px solid #49494c;
-    height: @script-editor-header-height;
-}
-
-.script-editor-wrapper {
-    height: 100%-@script-editor-header-height;
-    width: 100%;
-}
+export * from "./application";

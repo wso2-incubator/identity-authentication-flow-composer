@@ -16,8 +16,12 @@
  * under the License.
  */
 
-export * from "./sidebar";
-export * from "./modals";
-export * from "./cards";
-export * from "./typography";
-export * from "./svg";
+/**
+ * Application endpoints interface.
+ */
+export interface ApplicationEndpointsInterface {
+    applications: string,
+    authenticators: string,
+    identityProviders: string,
+    templates: string
+}
