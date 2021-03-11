@@ -20,44 +20,8 @@
  * Common styles for all react modals
  */
 
-body.modalOpened #root {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    filter: blur(0.05rem);
-    overflow:hidden;
-    opacity: 1;
-}
-
 .modal {
-    position: absolute;
-    background-color: #fff;
-    flex-direction: column;
-    display: flex;
     color: #313234;
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 5;
-}
-
-.modal-header {
-    color: rgba(0,0,0,.87);
-    font-weight: 500;
-    border-top-right-radius: 3px;
-    border-bottom: 1px solid rgba(34,36,38,.15);
-    font-size: 1.42857143rem;
-    padding: 1.5rem 1.5rem 1rem;
-    overflow: hidden;
-    min-height: 30px;
 }
 
 .modal-subheader {
@@ -69,17 +33,7 @@ body.modalOpened #root {
     white-space: nowrap;
     overflow: hidden;
     font-weight: 400;
-    font-size: 1rem;
-}
-
-.modal-button-container {
-    border-top: 1px solid rgba(34,36,38,.15);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    font-size: 1.43em;
-    line-height: 1.3em;
-    min-height: 1.7em;
-    padding: 20px 30px 20px 30px;
+    font-size: 1.2rem;
 }
 
 
@@ -88,23 +42,17 @@ body.modalOpened #root {
  */
 
 .component-selector {
-    border-radius: 4px;
-    position: fixed;
-    top: 25vh;
-    left: 32vw;
-    right: 32vw;
-    bottom: 30vh;
-    max-height: 85vh;
     box-shadow: 1px 1px 5px #0f1011;
+    max-width: 36vw;
 }
 
 .modal-action-card-container {
     flex-direction: row;
     display: flex;
-    height: 70%;
     justify-content: center;
     align-items: center;
     padding-left: 2vw;
+    min-height: 25vh;
 }
 
 
@@ -120,53 +68,46 @@ body.modalOpened #root {
     border-radius: 4px;
 }
 
-.condition-modal-content-container {
-    overflow: scroll;
-}
-
-.condition-group {
-    padding-left: 2vw;
-    margin: 2vh 0 2vh 0;
-}
-
-.condition-container {
-    display: flex;
-    flex-direction: column;
-}
-
 .condition-description {
-    margin-top: 0;
     color: #acadaf;
     align-self: flex-start;
     margin-bottom: 10px;
 }
 
 .condition-input {
-    width: 28vw;
+    display: inline-block;
+    width: 35vw;
+    margin-right: 8px;
 }
 
 .condition-selector {
     margin-bottom: 10px;
 }
 
+.text-input-login-attempts-no {
+    width: 40px;
+}
+
+.wrapper-flex-raw {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 /**
  * Styles for Step Configuration modal
  */
 
 .step-config-modal {
-    position: fixed;
     top: 13vh;
-    left: 23vw;
-    right: 23vw;
-    max-height: 85vh;
+    left: 22%;
+    right: 22%;
+    min-width: 56%;
+    max-height: 80%;
     flex-direction: column;
     display: flex;
     box-shadow: 1px 1px 5px #0f1011;
     border-radius: 4px;
-}
-
-.step-config-container {
     overflow: scroll;
     /* Hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;  /* IE and Edge */
@@ -174,34 +115,36 @@ body.modalOpened #root {
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.step-config-container::-webkit-scrollbar {
+.step-config-modal::-webkit-scrollbar {
     display: none;
-}
-
-.step-config-menu {
-    padding: 1.25rem 0 1rem 0;
-    display: flex;
-    flex-direction: column;
 }
 
 .menu-item-container {
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
 }
 
-.menu-item {
-    height: 5vh;
+.checkbox {
+    padding: 0 4px 8px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox label  {
+    padding-left: 10px;
 }
 
 .authenticators-header {
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 0.5rem;
     font-weight: 500;
-    font-size: 1.14285714rem;
+    font-size: 1.4rem;
 }
 
 .authenticators-section-header {
-    padding-left: 1.5rem;
-    padding-top: 1rem;
+    padding-left: 0.5rem;
+    padding-top: 0.6rem;
     font-weight: 500;
 }
 
@@ -209,9 +152,5 @@ body.modalOpened #root {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-left: 1.5rem;
+    padding-left: 0.5rem;
 }
-
-
-
-
