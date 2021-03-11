@@ -16,7 +16,21 @@
  * under the License.
  */
 
-export * from "./script-based-flow";
-export * from "./core";
-export * from "./mapper";
-export * from "./visual-flow";
+import React, { FunctionComponent, ReactElement } from "react";
+
+/**
+ * Visual flow component.
+ *
+ * @return {React.ReactElement}
+ */
+export const VisualFlow : FunctionComponent = () : ReactElement => {
+
+    return (
+        <div className="visual-flow-container">
+            <div className="visual-flow-header">
+                <h3>Visual Editor</h3>
+            </div>
+        </div>
+    );
+
+};

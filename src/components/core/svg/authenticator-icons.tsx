@@ -560,4 +560,5 @@ export const AuthenticatorIcons : FunctionComponent<AuthenticatorIconsProps> = (
             </svg>
         )
     );
+
 };

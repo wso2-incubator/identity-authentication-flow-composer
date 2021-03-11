@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { ScriptBasedFlow, Sidebar } from "./components";
+import { ScriptBasedFlow, Sidebar, VisualFlow } from "./components";
 
 /**
  * Main App component.
@@ -31,6 +31,7 @@ export const App: FunctionComponent = (): ReactElement => {
             </header>
             <div className="app-body">
                 <Sidebar/>
+                <VisualFlow/>
                 <ScriptBasedFlow/>
             </div>
         </div>

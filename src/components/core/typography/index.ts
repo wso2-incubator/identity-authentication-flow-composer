@@ -16,4 +16,4 @@
  * under the License.
  */
 
-export * from "./Hint";
+export * from "./hint";

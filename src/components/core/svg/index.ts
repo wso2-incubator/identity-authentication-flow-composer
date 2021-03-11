@@ -17,3 +17,13 @@
  */
 
 export * from "./authenticator-icons";
+export * from "./basic";
+export * from "./facebook";
+export * from "./fido";
+export * from "./google";
+export * from "./identifier-first";
+export * from "./instagram";
+export * from "./login-box";
+export * from "./authentication-option-button";
+export * from "./totp";
+export * from "./twitter";
