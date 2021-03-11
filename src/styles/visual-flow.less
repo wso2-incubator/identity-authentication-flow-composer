@@ -1,0 +1,81 @@
+/**
+ * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/**
+ * Variables related to visual flow styles
+ */
+@visual-flow-header-height: 5%;
+@visual-flow-width: 60%;
+@visual-flow-height: 100%;
+
+/**
+ * visual flow styles
+ */
+.visual-flow-container{
+    width: @visual-flow-width;
+    height: @visual-flow-height;
+    border-bottom: 1px solid #49494c;
+}
+
+.visual-flow-header{
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #49494c;
+    height: @visual-flow-header-height;
+}
+
+.react-flow-container {
+    height: 95%;
+    width: 100%;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #313234;
+}
+
+.flow-control {
+    opacity: 0.5;
+}
+
+.flow-background {
+    opacity: 0.5;
+}
+
+.warning {
+    padding: 40px;
+    color: #a3a0a0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.warning-header{
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.warning-content{
+    font-size: 0.75rem;
+}
+
+.warning-icon {
+    color: #aa303f;
+    padding: 0 10px;
+}

@@ -17,23 +17,20 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { ScriptBasedFlow, Sidebar, VisualFlow } from "./components";
 
 /**
- * Main App component.
+ * Visual flow component.
  *
  * @return {React.ReactElement}
  */
-export const App: FunctionComponent = (): ReactElement => {
+export const VisualFlow : FunctionComponent = () : ReactElement => {
+
     return (
-        <div className="app">
-            <header className="app-header">
-            </header>
-            <div className="app-body">
-                <Sidebar/>
-                <VisualFlow/>
-                <ScriptBasedFlow/>
+        <div className="visual-flow-container">
+            <div className="visual-flow-header">
+                <h3>Visual Editor</h3>
             </div>
         </div>
     );
+
 };
