@@ -45,7 +45,7 @@ export const Hint: FunctionComponent<HintProps> = (props: HintProps) : ReactElem
     return (
         <div className="hint-container">
             <FaInfoCircle className="hint-icon"/>
-            { hint }
+            <div className="hint-text">{ hint }</div>
         </div>
     );
 };
