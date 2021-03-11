@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import ReactModal from "react-modal";
+import { Modal } from "semantic-ui-react";
 import { ReactComponent as ConditionIcon } from "../../../assets/condition.svg";
 import { ReactComponent as StepIcon } from "../../../assets/step.svg";
 import { ActionCard } from "../cards";
@@ -63,33 +63,32 @@ export const ComponentSelector: FunctionComponent<ComponentSelectorProps> = (
     } = props;
 
     return (
-        <ReactModal
-            isOpen={ isOpen }
+        <Modal
+            open={ isOpen }
             className="modal component-selector"
-            overlayClassName="overlay"
-            ariaHideApp={ true }
-            bodyOpenClassName="modalOpened"
         >
-            <div className="modal-header">
+            <Modal.Header>
                     Select a component
-            </div>
-            <div className="modal-action-card-container">
-                <ActionCard
-                    icon={ <StepIcon/> }
-                    heading="Authentication Step"
-                    subHeading="Add an authentication step by selecting authenticators"
-                    onClick={ ()=>onStepSelection() }
-                />
-                <ActionCard
-                    icon={ <ConditionIcon/> }
-                    heading="Condition"
-                    subHeading="Add a condition by selecting predefined conditions"
-                    onClick={ ()=>onConditionSelection() }
-                />
-            </div>
-            <div className="modal-button-container">
+            </Modal.Header>
+            <Modal.Content>
+                <div className="modal-action-card-container">
+                    <ActionCard
+                        icon={ <StepIcon/> }
+                        heading="Authentication Step"
+                        subHeading="Add an authentication step by selecting authenticators"
+                        onClick={ ()=>onStepSelection() }
+                    />
+                    <ActionCard
+                        icon={ <ConditionIcon/> }
+                        heading="Condition"
+                        subHeading="Add a condition by selecting predefined conditions"
+                        onClick={ ()=>onConditionSelection() }
+                    />
+                </div>
+            </Modal.Content>
+            <Modal.Actions>
                 <button className="secondary-button float-right" onClick={ ()=>onCancel() }>Cancel</button>
-            </div>
-        </ReactModal>
+            </Modal.Actions>
+        </Modal>
     );
 };
