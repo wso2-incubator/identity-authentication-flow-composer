@@ -18,3 +18,5 @@
 
 export * from "./script-based-flow";
 export * from "./core";
+export * from "./mapper";
+export * from "./visual-flow";
