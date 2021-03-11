@@ -16,8 +16,8 @@
  * under the License.
  */
 
-import { Tooltip } from "@material-ui/core";
 import React, { FunctionComponent, ReactElement } from "react";
+import { Popup } from "semantic-ui-react";
 import { AuthenticatorIcons } from "../svg";
 
 /**
@@ -67,38 +67,45 @@ export const Authenticator: FunctionComponent<AuthenticatorProps> = (
 
     return(
         <div className="authenticator-wrapper">
-            <Tooltip
-                title={
-                    (factorName==="fido" || factorName==="totp") ?
-                        "This is a second factor authenticator and this can be used only if a basic authenticator" +
-                    " or a identifier-first authenticator has been added in a previous step":""
+
+            <Popup
+                trigger={
+                    <span className="disabled-button-wrapper">
+                        <button
+                            className={ checked ? "authenticator select": "authenticator unselect" }
+                            onClick={ ()=> {
+                                onChange(factorName);
+                            } }
+                            disabled={ disabled }
+                        >
+                            <div className={ factorType }>
+                                <AuthenticatorIcons
+                                    type={ factorName+"-icon" }
+                                    iconX={ 0 }
+                                    iconY={ 0 }
+                                    iconHeight={ 40 }
+                                    iconWidth={ 40 }
+                                />
+                            </div>
+                        </button>
+                    </span>
                 }
-                arrow={ true }
-                placement="top"
-            >
-                <button
-                    className={ checked ? "authenticator select": "authenticator unselect" }
-                    onClick={ ()=> {
-                        onChange(factorName);
-                    } }
-                    disabled={ disabled }
-                >
-                    <div className={ factorType }>
-                        <AuthenticatorIcons
-                            type={ factorName+"-icon" }
-                            iconX={ 0 }
-                            iconY={ 0 }
-                            iconHeight={ 40 }
-                            iconWidth={ 40 }
-                        />
+                disabled = { factorName !== "fido" && factorName !== "totp" }
+                content = { "This is a second factor authenticator and this can be used only if a basic authenticator" +
+                        " or a identifier-first authenticator has been added in a previous step" }
+                position="top center"
+                wide={ true }
+            />
+
+            <Popup
+                content={ factorName }
+                trigger={
+                    <div className="authenticator-name">
+                        { factorName }
                     </div>
-                </button>
-            </Tooltip>
-            <Tooltip title={ factorName }>
-                <div className="authenticator-name">
-                    { factorName }
-                </div>
-            </Tooltip>
+                }
+                position="bottom center"
+            />
         </div>
     );
 };
