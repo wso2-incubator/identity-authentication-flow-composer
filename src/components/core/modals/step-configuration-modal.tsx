@@ -16,11 +16,10 @@
  * under the License.
  */
 
-import { Checkbox, ListItemText, MenuItem } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import ReactModal from "react-modal";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
+import { Checkbox, Modal } from "semantic-ui-react";
 import { getAuthenticators } from "../../../api";
 import { setAttributesIdentifier, setSubjectIdentifier } from "../../../store/actions/actions";
 import { Authenticator } from "../cards";
@@ -41,11 +40,11 @@ export interface StepConfigurationModalProps {
     /**
      * Authentication step id
      */
-    step: number,
+    step: number|null,
     /**
      * Next authentication step id
      */
-    nextStep: number,
+    nextStep: number|null,
     /**
      * Callback function for cancel selection
      */
@@ -151,7 +150,9 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             if (step===null && nextStep===null) {
                 changeSubjectIdentifier(steps.length+1);
             }else if (step===null) {
-                changeSubjectIdentifier(nextStep);
+                if (nextStep != null) {
+                    changeSubjectIdentifier(nextStep);
+                }
             }else {
                 changeSubjectIdentifier(step);
             }
@@ -162,7 +163,9 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             if (step===null && nextStep===null){
                 changeAttributesFRom(steps.length+1);
             }else if (step===null){
-                changeAttributesFRom(nextStep);
+                if (nextStep != null) {
+                    changeAttributesFRom(nextStep);
+                }
             }else {
                 changeAttributesFRom(step);
             }
@@ -171,44 +174,36 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     };
 
     return (
-        <ReactModal
-            isOpen={ isOpen }
+        <Modal
+            open={ isOpen }
             className="modal step-config-modal"
-            overlayClassName="overlay"
-            bodyOpenClassName="modalOpened"
         >
-            <div className="step-config-container">
-                <div className="modal-header">
-                    { prefix } Step { step } Configuration
-                    <div className="modal-subheader">
-                        Configure authentication step by selecting the local/federated authenticators.
-                    </div>
+            <Modal.Header>
+                { prefix } Step { step } Configuration
+                <div className="modal-subheader">
+                    Configure authentication step by selecting the local/federated authenticators.
                 </div>
-                <div className="step-config-menu">
-                    <div className="menu-item-container">
-                        <MenuItem value="subject" className="menu-item">
-                            <Checkbox
-                                className="checkbox"
-                                color="default"
-                                checked={ useSubjectFromThisStep }
-                                onChange={ (event, checked) => setUseSubjectFromThisStep(checked) }
-                            />
-                            <ListItemText primary={ "Use subject identifier from this step" } className="menuItemName"/>
-                        </MenuItem>
-                        <Hint hint="This option will use the subject identifier from this step"/>
-                    </div>
-                    <div className="menu-item-container">
-                        <MenuItem value="attributes" className="menu-item">
-                            <Checkbox
-                                className="checkbox"
-                                color="default"
-                                checked={ useAttributesFromThisStep }
-                                onChange={ (event, checked) => setUseAttributesFromThisStep(checked) }
-                            />
-                            <ListItemText primary={ "Use attributes from this step" } className="menuItemName"/>
-                        </MenuItem>
-                        <Hint hint="This option will use the attributes identifier from this step"/>
-                    </div>
+            </Modal.Header>
+
+            <Modal.Content>
+
+                <div className="menu-item-container">
+                    <Checkbox
+                        className="checkbox"
+                        checked={ useSubjectFromThisStep }
+                        onChange={ (event, checked) => setUseSubjectFromThisStep(checked) }
+                        label="Use subject identifier from this step"
+                    />
+                    <Hint hint="This option will use the subject identifier from this step"/>
+                </div>
+                <div className="menu-item-container">
+                    <Checkbox
+                        className="checkbox"
+                        checked={ useAttributesFromThisStep }
+                        onChange={ (event, checked) => setUseAttributesFromThisStep(checked) }
+                        label = "Use attributes from this step"
+                    />
+                    <Hint hint="This option will use the attributes identifier from this step"/>
                 </div>
 
                 <div className="authenticators-header">Authenticators</div>
@@ -254,6 +249,10 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     }) }
                 </div>
 
+            </Modal.Content>
+
+            <Modal.Actions>
+
                 <div className="modal-button-container">
                     <div>
                         <button
@@ -264,7 +263,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                             Done
                         </button>
                         <button
-                            className="secondary-button"
+                            className="secondary-button float-left"
                             onClick={ ()=>onCancel() }
                         >
                             Cancel
@@ -272,7 +271,8 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     </div>
                 </div>
 
-            </div>
-        </ReactModal>
+            </Modal.Actions>
+
+        </Modal>
     );
 };
