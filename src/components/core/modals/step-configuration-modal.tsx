@@ -109,12 +109,12 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     const dispatch: Dispatch<any> = useDispatch();
 
     const saveSubjectIdentifierToStore = React.useCallback(
-        (step: number) => dispatch(setAttributesIdentifier(step)),
+        (step: number) => dispatch(setSubjectIdentifier(step)),
         [dispatch]
     );
 
     const saveAttributesIdentifierToStore = React.useCallback(
-        (step: number) => dispatch(setSubjectIdentifier(step)),
+        (step: number) => dispatch(setAttributesIdentifier(step)),
         [dispatch]
     );
 
@@ -129,9 +129,9 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     }
 
     const [checkedList, setCheckedList] : [any, any] = useState(factors);
-    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom==step);
+    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom===step);
     const [useAttributesFromThisStep, setUseAttributesFromThisStep] =
-        useState<boolean|undefined>(useAttributesFrom==step);
+        useState<boolean|undefined>(useAttributesFrom===step);
 
     const onChange = (name?:string) => {
         if(checkedList.indexOf(name)===-1){
@@ -194,6 +194,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useSubjectFromThisStep }
+                        readOnly = { (step===1 && useSubjectFromThisStep) }
                         onChange={ (event, props) => setUseSubjectFromThisStep(props.checked) }
                         label="Use subject identifier from this step"
                     />
@@ -203,6 +204,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useAttributesFromThisStep }
+                        readOnly = { (step===1 && useSubjectFromThisStep) }
                         onChange={ (event, props) => setUseAttributesFromThisStep(props.checked) }
                         label = "Use attributes from this step"
                     />
