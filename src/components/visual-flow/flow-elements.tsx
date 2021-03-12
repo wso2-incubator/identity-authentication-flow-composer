@@ -131,7 +131,6 @@ export const AuthenticationOptionElement = (id:string, type:string, x:number, y:
         position: { x: x, y: y },
         type: "authenticationOption"
     });
-
 };
 
 /**
