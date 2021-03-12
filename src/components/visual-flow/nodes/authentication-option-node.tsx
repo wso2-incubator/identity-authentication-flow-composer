@@ -96,5 +96,4 @@ export const AuthenticationOptionNode : FunctionComponent<AuthenticationOptionNo
             />
         </div>
     );
-
 };
