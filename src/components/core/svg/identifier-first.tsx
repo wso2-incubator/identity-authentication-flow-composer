@@ -145,5 +145,4 @@ export const IdentifierFirst: FunctionComponent<IdentifierFirstProps> = (
             </svg>
         </div>
     );
-
 };

@@ -438,5 +438,4 @@ export const Google: FunctionComponent = () : ReactElement => {
 
         </div>
     );
-
 };

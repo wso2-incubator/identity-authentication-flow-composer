@@ -142,8 +142,10 @@ export const AuthenticatorIcons : FunctionComponent<AuthenticatorIconsProps> = (
                 0-99.378906 36-99.378906 102.140625v57.035156h-66.5v77.5h66.5v198zm0 0" fill="#fff"/>
             </svg>
         ) : type==="fido" ? (
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x={ iconX } y={ iconY }
-                viewBox="0 0 503.488 503.488" enableBackground="new 0 0 503.488 503.488" xmlSpace="preserve" width={ iconWidth } height={ iconHeight }>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" 
+                xmlnsXlink="http://www.w3.org/1999/xlink" x={ iconX } y={ iconY }
+                viewBox="0 0 503.488 503.488" enableBackground="new 0 0 503.488 503.488" xmlSpace="preserve" 
+                width={ iconWidth } height={ iconHeight }>
                 <g>
                     <g>
                         <path d="M382.616,133.644h-61.908c-2.148,0-4.156-0.436-4.156,1.7v61.904c0,2.14,2.008,3.28,4.156,
@@ -557,5 +559,4 @@ export const AuthenticatorIcons : FunctionComponent<AuthenticatorIconsProps> = (
             </svg>
         )
     );
-
 };

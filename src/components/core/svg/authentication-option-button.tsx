@@ -70,5 +70,4 @@ export const AuthenticationOptionButton: React.FC<AuthenticationOptionButtonProp
             </text>
         </g>
     );
-
 };
