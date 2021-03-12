@@ -239,7 +239,6 @@ export const CustomEdge = (
         targetHandle: targetHandler,
         type: "custom"
     });
-
 };
 
 /**
