@@ -460,16 +460,18 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
                             onStepSelection={ openStepConfigModal }
                             onConditionSelection={ openConditionModal }
                         />
-                        <StepConfigurationModal
+                        { visibleStepConfigurationModal && <StepConfigurationModal
                             isOpen={ visibleStepConfigurationModal }
                             onDone={ onStepConfigModalDone }
                             step={ stepToViewAuthFactors }
                             nextStep={ nextStep }
-                            onCancel={ ()=>{
+                            onCancel={ () => {
                                 setVisibleStepConfigurationModal(false);
-                                setStep(null);}
+                                setStep(null);
+                            }
                             }
                         />
+                        }
                         <ConditionsList
                             isOpen={ visibleConditionsModal }
                             onDone={ addConditionToFlow }
