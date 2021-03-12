@@ -326,8 +326,8 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
                     newAst = AddSuccessFailureStepsBefore(ast, nextStep);
                     step = nextStep;
                 }
-                saveIntermediateAuthenticationStepToStore(step, authFactors);
-                nextStep(null);
+                saveIntermediateAuthenticationStepToStore(+step, authFactors);
+                setNextStep(null);
             }
             else if (endsWithCondition===null){
                 newAst = AddSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
