@@ -17,19 +17,29 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Node, Position } from "react-flow-renderer";
 import Jwt from "../../../assets/jwt.png";
 import { Facebook, Fido, Google, Instagram, Totp, Twitter } from "../../core";
 
 /**
+ * Authentication option node interface prop types.
+ */
+export type AuthenticationOptionNodeInterface = Node;
+
+/**
  * Authentication Option Node component.
+ *
+ * @param {AuthenticationOptionNodeInterface} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */
-// eslint-disable-next-line react/prop-types,@typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line react/prop-types
-export const AuthenticationOptionNode : FunctionComponent = ({ data }) : ReactElement => {
+export const AuthenticationOptionNode : FunctionComponent<AuthenticationOptionNodeInterface> = (
+    props: AuthenticationOptionNodeInterface
+) : ReactElement => {
+
+    const {
+        data
+    } = props;
 
     const type: string = data.type;
 
