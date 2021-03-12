@@ -108,7 +108,6 @@ export const PlusElement = (id:string, x:number, y:number) : FlowElement => {
         position: { x: x, y: y },
         type: "plus"
     });
-
 };
 
 /**
