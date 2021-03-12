@@ -116,14 +116,14 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
         [dispatch]
     );
 
-    const currentStep = steps.filter((element:any)=>element.id===step);
+    const currentStep = steps.filter((element:any)=>element.stepId===step);
     if (currentStep.length>0){
-        factors=currentStep[0].options;
+        factors = currentStep[0].authenticators;
     }
 
-    const firstStep = steps.filter((element:any)=>element.id===1);
+    const firstStep = steps.filter((element:any)=>element.stepId===1);
     if (firstStep.length>0){
-        factorsOfFirstStep=firstStep[0].options;
+        factorsOfFirstStep = firstStep[0].authenticators;
     }
 
     const [checkedList, setCheckedList] : [any, any] = useState(factors);
