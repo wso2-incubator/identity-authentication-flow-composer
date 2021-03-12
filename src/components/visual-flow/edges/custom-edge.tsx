@@ -103,6 +103,7 @@ export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdg
     let targetOffsetY: number = data.targetOffsetY;
     let middleOffset: number = data.middleOffset;
     let borderRadius: number = 0;
+   
     if (offset===undefined) offset = 0;
     if (targetOffsetX===undefined) targetOffsetX = 0;
     if (targetOffsetY===undefined) targetOffsetY = 0;
