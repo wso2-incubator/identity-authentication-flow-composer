@@ -89,7 +89,6 @@ export const DoneElement = (id:string, x:number, y:number) : FlowElement => {
         position: { x: x, y: y },
         type: "done"
     });
-
 };
 
 /**
