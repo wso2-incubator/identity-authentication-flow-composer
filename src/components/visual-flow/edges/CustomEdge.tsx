@@ -17,7 +17,14 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { ArrowHeadType, EdgeText, Position, getEdgeCenter, getMarkerEnd, getSmoothStepPath } from "react-flow-renderer";
+import {
+    ArrowHeadType,
+    EdgeText,
+    Position,
+    getEdgeCenter,
+    getMarkerEnd,
+    getSmoothStepPath
+} from "react-flow-renderer";
 
 /**
  * Custom Edge component Prop types.
@@ -79,14 +86,22 @@ export interface CustomEdgeProps {
 export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdgeProps) : ReactElement => {
 
     const {
-        id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, data, arrowHeadType, markerEndId
+        id,
+        sourceX,
+        sourceY,
+        targetX,
+        targetY,
+        sourcePosition,
+        targetPosition,
+        data,
+        arrowHeadType,
+        markerEndId
     } = props;
 
-    let offset: number = data.offset,
-        targetOffsetX: number = data.targetOffsetX,
-        targetOffsetY: number = data.targetOffsetY,
-        middleOffset: number = data.middleOffset;
-
+    let offset: number = data.offset;
+    let targetOffsetX: number = data.targetOffsetX;
+    let targetOffsetY: number = data.targetOffsetY;
+    let middleOffset: number = data.middleOffset;
     let borderRadius: number = 0;
     if (offset===undefined) offset = 0;
     if (targetOffsetX===undefined) targetOffsetX = 0;
