@@ -148,5 +148,4 @@ export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdg
             />
         </g>
     );
-
 };
