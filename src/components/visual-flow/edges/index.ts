@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import { CustomEdge } from "./CustomEdge";
+import { CustomEdge } from "./custom-edge";
 
 export const edgeTypes = {
     custom: CustomEdge
