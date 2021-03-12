@@ -70,7 +70,6 @@ export const ConditionElement = (
         position: { x: x, y: y },
         type: "condition"
     });
-
 };
 
 /**
