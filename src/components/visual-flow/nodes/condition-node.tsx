@@ -17,16 +17,27 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Node, Position } from "react-flow-renderer";
+
+/**
+ * Condition node interface prop types.
+ */
+export type ConditionNodeInterface = Node;
 
 /**
  * Condition Node component.
  *
+ * @param {ConditionNodeInterface} props - Props injected to the component.
+ *
  * @return {React.ReactElement}
  */
-// eslint-disable-next-line react/prop-types,@typescript-eslint/ban-ts-comment
-// @ts-ignore
-export const ConditionNode : FunctionComponent = ({ data }) : ReactElement => {
+export const ConditionNode : FunctionComponent<ConditionNodeInterface> = (
+    props: ConditionNodeInterface
+) : ReactElement => {
+
+    const {
+        data
+    } = props;
 
     const condition: string = data.condition;
     const args: string[] = data.args;
