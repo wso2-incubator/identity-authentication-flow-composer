@@ -82,5 +82,4 @@ export const ConditionNode : FunctionComponent<ConditionNodeInterface> = (
             />
         </div>
     );
-
 };
