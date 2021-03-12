@@ -125,7 +125,7 @@ export const createVariableDeclarationForCondition = (condition:string, params?:
     let parameters: any = type.arrayExpression([]);
     let variableNameForParameters = syntax.params;
     if (condition==="hasRole"){
-        const roles = params.map((param:any)=>type.stringLiteral(param.value));
+        const roles = params.map((param:any)=>type.stringLiteral(param));
         parameters=type.arrayExpression(roles);
         variableNameForParameters = syntax.roles;
     }
