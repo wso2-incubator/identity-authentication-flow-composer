@@ -34,7 +34,7 @@ export const ScriptBasedFlow: FunctionComponent = (): ReactElement => {
 
     const dispatch: Dispatch<any> = useDispatch();
 
-    const [ast, changedFromVisualEditor] : any = useSelector(
+    const [ast, changedFromVisualEditor] : [File, boolean] = useSelector(
         (state:AppState) => {
             return [state.astReducer.ast, state.astReducer.changedFromVisualEditor];
         },

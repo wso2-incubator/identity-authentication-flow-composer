@@ -803,5 +803,4 @@ export const Fido: FunctionComponent = () : ReactElement => {
             </svg>
         </div>
     );
-
 };

@@ -17,13 +17,13 @@
  */
 
 import React, { FunctionComponent, ReactElement, useState } from "react";
-import { Dropdown, Form, FormInput, Modal, Radio } from "semantic-ui-react";
+import { Form, FormInput, Modal, Radio } from "semantic-ui-react";
 
 const roles = [
     { key:"admin", text:"admin", value: "admin" },
     { key:"manager", text:"manager", value: "manager" },
-    { key:"manager", text:"accountant", value: "accountant" },
-    { key:"manager", text:"everyone", value: "everyone" }
+    { key:"accountant", text:"accountant", value: "accountant" },
+    { key:"everyone", text:"everyone", value: "everyone" }
 ];
 
 /**
@@ -63,7 +63,7 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
 
     const [checkedCondition, setCheckedCondition] = useState("hasRole");
     const [customConditionName, setCustomConditionName] = useState("");
-    const [selectedRoles, setSelectedRoles] :[any, any] = useState([roles[0], roles[1]]);
+    const [selectedRoles, setSelectedRoles] :[any, any] = useState(["admin", "manager"]);
     const [minLoginAttempts, setMinLoginAttempts] :[any,any] = useState(3);
 
     return (
@@ -90,12 +90,13 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                             Checking if the user is assigned to one of the given roles
                         </p>
                         { checkedCondition==="hasRole" &&
-                            <Dropdown
+                            <Form.Dropdown
                                 className="condition-input"
                                 placeholder="Select Roles"
+                                value={ selectedRoles }
                                 fluid multiple selection
-                                onChange={ (options)=>
-                                    setSelectedRoles(options) }
+                                onChange={ (element, props)=>
+                                    setSelectedRoles(props.value) }
                                 options={ roles }
                             />
                         }
@@ -148,7 +149,9 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
             <Modal.Actions>
                 <button
                     className="primary-button float-right"
-                    disabled={ checkedCondition==="custom" && customConditionName==="" }
+                    disabled={ (checkedCondition==="custom" && customConditionName==="") ||
+                        (checkedCondition==="hasRole" && selectedRoles.length===0)
+                    }
                     onClick={ ()=>{
                         if(checkedCondition==="custom"){
                             onDone(customConditionName);

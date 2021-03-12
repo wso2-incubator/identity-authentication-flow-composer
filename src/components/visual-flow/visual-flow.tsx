@@ -17,6 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
+import { VisualEditor } from "./visual-editor";
 
 /**
  * Visual flow component.
@@ -30,6 +31,7 @@ export const VisualFlow : FunctionComponent = () : ReactElement => {
             <div className="visual-flow-header">
                 <h3>Visual Editor</h3>
             </div>
+            <VisualEditor/>
         </div>
     );
 

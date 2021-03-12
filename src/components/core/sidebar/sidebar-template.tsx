@@ -61,17 +61,17 @@ export const Template: FunctionComponent<TemplateProps> = (props: TemplateProps)
         [dispatch]
     );
 
-    const addFactorToStep = React.useCallback(
+    const saveAuthenticationStepToStore = React.useCallback(
         (step: any, factors:any[]) => dispatch(setAuthenticationStep(step, factors)),
         [dispatch]
     );
 
-    const changeSubjectIdentifier = React.useCallback(
+    const saveSubjectIdentifierToStore = React.useCallback(
         (step: number) => dispatch(setSubjectIdentifier(step)),
         [dispatch]
     );
 
-    const changeAttributesFRom = React.useCallback(
+    const saveAttributesIdentifierToStore = React.useCallback(
         (step: number) => dispatch(setAttributesIdentifier(step)),
         [dispatch]
     );
@@ -80,13 +80,15 @@ export const Template: FunctionComponent<TemplateProps> = (props: TemplateProps)
         const template = templates.find(template => {
             return template.name === name;
         });
-        changeSubjectIdentifier(1);
-        changeAttributesFRom(1);
+        saveSubjectIdentifierToStore(1);
+        saveAttributesIdentifierToStore(1);
         if (template) {
             saveAstToStore(ParseToAst(template.code.join("\n")));
             const authenticatorsArray = Object.values(template?.defaultAuthenticators);
+            let stepNo: number = 1;
             for (const step of authenticatorsArray) {
-                addFactorToStep(step, step.local.concat(step.federated));
+                saveAuthenticationStepToStore(stepNo, step.local.concat(step.federated));
+                stepNo+=1;
             }
         }
     };

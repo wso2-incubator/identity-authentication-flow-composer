@@ -112,5 +112,4 @@ export const LoginBox: FunctionComponent<LoginBoxProps> = (props: LoginBoxProps)
             </svg>
         </div>
     );
-
 };

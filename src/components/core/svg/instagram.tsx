@@ -345,5 +345,4 @@ export const Instagram: FunctionComponent = () : ReactElement => {
             </svg>
         </div>
     );
-
 };

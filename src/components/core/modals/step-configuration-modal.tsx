@@ -21,6 +21,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Checkbox, Modal } from "semantic-ui-react";
 import { getAuthenticators } from "../../../api";
+import { AuthenticationStep } from "../../../models";
 import { setAttributesIdentifier, setSubjectIdentifier } from "../../../store/actions/actions";
 import { Authenticator } from "../cards";
 import { Hint } from "../typography";
@@ -97,38 +98,40 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             });
     }, []);
 
-    const [steps, useSubjectFrom, useAttributesFrom] : any = useSelector(
+    const [steps, useSubjectFrom, useAttributesFrom] : [AuthenticationStep[], number, number] = useSelector(
         (state:any) => {
-            return [state.stepReducer.steps,state.stepReducer.useSubjectFrom, state.stepReducer.useAttributesFrom];
+            return [state.stepReducer.steps,state.stepReducer.subjectIdentifierStep,
+                state.stepReducer.attributesIdentifierStep];
         },
         shallowEqual
     );
 
     const dispatch: Dispatch<any> = useDispatch();
 
-    const changeSubjectIdentifier = React.useCallback(
-        (step: number) => dispatch(setAttributesIdentifier(step)),
-        [dispatch]
-    );
-
-    const changeAttributesFRom = React.useCallback(
+    const saveSubjectIdentifierToStore = React.useCallback(
         (step: number) => dispatch(setSubjectIdentifier(step)),
         [dispatch]
     );
 
-    const currentStep = steps.filter((element:any)=>element.id===step);
+    const saveAttributesIdentifierToStore = React.useCallback(
+        (step: number) => dispatch(setAttributesIdentifier(step)),
+        [dispatch]
+    );
+
+    const currentStep = steps.filter((element:any)=>element.stepId===step);
     if (currentStep.length>0){
-        factors=currentStep[0].options;
+        factors = currentStep[0].authenticators;
     }
 
-    const firstStep = steps.filter((element:any)=>element.id===1);
+    const firstStep = steps.filter((element:any)=>element.stepId===1);
     if (firstStep.length>0){
-        factorsOfFirstStep=firstStep[0].options;
+        factorsOfFirstStep = firstStep[0].authenticators;
     }
 
     const [checkedList, setCheckedList] : [any, any] = useState(factors);
-    const [useSubjectFromThisStep, setUseSubjectFromThisStep] : [any, any] = useState(useSubjectFrom===step);
-    const [useAttributesFromThisStep, setUseAttributesFromThisStep] : [any, any] = useState(useAttributesFrom===step);
+    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom===step);
+    const [useAttributesFromThisStep, setUseAttributesFromThisStep] =
+        useState<boolean|undefined>(useAttributesFrom===step);
 
     const onChange = (name?:string) => {
         if(checkedList.indexOf(name)===-1){
@@ -145,29 +148,29 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
 
     const onClick = () => {
         if (useSubjectFrom===step && !useSubjectFromThisStep){
-            changeSubjectIdentifier(1);
+            saveSubjectIdentifierToStore(1);
         }else if (!(useSubjectFrom===step) && useSubjectFromThisStep){
             if (step===null && nextStep===null) {
-                changeSubjectIdentifier(steps.length+1);
+                saveSubjectIdentifierToStore(steps.length+1);
             }else if (step===null) {
                 if (nextStep != null) {
-                    changeSubjectIdentifier(nextStep);
+                    saveSubjectIdentifierToStore(nextStep);
                 }
             }else {
-                changeSubjectIdentifier(step);
+                saveSubjectIdentifierToStore(step);
             }
         }
         if (useAttributesFrom===step && !useAttributesFromThisStep){
-            changeAttributesFRom(1);
+            saveAttributesIdentifierToStore(1);
         }else if(!(useAttributesFrom===step) && useAttributesFromThisStep){
             if (step===null && nextStep===null){
-                changeAttributesFRom(steps.length+1);
+                saveAttributesIdentifierToStore(steps.length+1);
             }else if (step===null){
                 if (nextStep != null) {
-                    changeAttributesFRom(nextStep);
+                    saveAttributesIdentifierToStore(nextStep);
                 }
             }else {
-                changeAttributesFRom(step);
+                saveAttributesIdentifierToStore(step);
             }
         }
         onDone(checkedList);
@@ -191,7 +194,8 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useSubjectFromThisStep }
-                        onChange={ (event, checked) => setUseSubjectFromThisStep(checked) }
+                        readOnly = { (step===1 && useSubjectFromThisStep) }
+                        onChange={ (event, props) => setUseSubjectFromThisStep(props.checked) }
                         label="Use subject identifier from this step"
                     />
                     <Hint hint="This option will use the subject identifier from this step"/>
@@ -200,7 +204,8 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useAttributesFromThisStep }
-                        onChange={ (event, checked) => setUseAttributesFromThisStep(checked) }
+                        readOnly = { (step===1 && useSubjectFromThisStep) }
+                        onChange={ (event, props) => setUseAttributesFromThisStep(props.checked) }
                         label = "Use attributes from this step"
                     />
                     <Hint hint="This option will use the attributes identifier from this step"/>
