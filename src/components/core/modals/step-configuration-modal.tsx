@@ -21,6 +21,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { Checkbox, Modal } from "semantic-ui-react";
 import { getAuthenticators } from "../../../api";
+import { AuthenticationStep } from "../../../models";
 import { setAttributesIdentifier, setSubjectIdentifier } from "../../../store/actions/actions";
 import { Authenticator } from "../cards";
 import { Hint } from "../typography";
@@ -97,9 +98,10 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             });
     }, []);
 
-    const [steps, useSubjectFrom, useAttributesFrom] : any = useSelector(
+    const [steps, useSubjectFrom, useAttributesFrom] : [AuthenticationStep[], number, number] = useSelector(
         (state:any) => {
-            return [state.stepReducer.steps,state.stepReducer.useSubjectFrom, state.stepReducer.useAttributesFrom];
+            return [state.stepReducer.steps,state.stepReducer.subjectIdentifierStep,
+                state.stepReducer.attributesIdentifierStep];
         },
         shallowEqual
     );
@@ -127,8 +129,9 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     }
 
     const [checkedList, setCheckedList] : [any, any] = useState(factors);
-    const [useSubjectFromThisStep, setUseSubjectFromThisStep] : [any, any] = useState(useSubjectFrom===step);
-    const [useAttributesFromThisStep, setUseAttributesFromThisStep] : [any, any] = useState(useAttributesFrom===step);
+    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom==step);
+    const [useAttributesFromThisStep, setUseAttributesFromThisStep] =
+        useState<boolean|undefined>(useAttributesFrom==step);
 
     const onChange = (name?:string) => {
         if(checkedList.indexOf(name)===-1){
@@ -191,7 +194,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useSubjectFromThisStep }
-                        onChange={ (event, checked) => setUseSubjectFromThisStep(checked) }
+                        onChange={ (event, props) => setUseSubjectFromThisStep(props.checked) }
                         label="Use subject identifier from this step"
                     />
                     <Hint hint="This option will use the subject identifier from this step"/>
@@ -200,7 +203,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useAttributesFromThisStep }
-                        onChange={ (event, checked) => setUseAttributesFromThisStep(checked) }
+                        onChange={ (event, props) => setUseAttributesFromThisStep(props.checked) }
                         label = "Use attributes from this step"
                     />
                     <Hint hint="This option will use the attributes identifier from this step"/>
