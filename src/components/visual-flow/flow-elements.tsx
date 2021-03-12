@@ -43,7 +43,6 @@ export const AuthenticationStepElement = (
         position: { x: x, y: y },
         type: "authenticationStep"
     });
-
 };
 
 /**
