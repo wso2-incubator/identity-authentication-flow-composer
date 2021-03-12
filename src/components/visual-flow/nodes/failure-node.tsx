@@ -45,5 +45,4 @@ export const FailureNode : FunctionComponent = () : ReactElement => {
             />
         </div>
     );
-
 };
