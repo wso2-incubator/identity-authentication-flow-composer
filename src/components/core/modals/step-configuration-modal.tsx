@@ -106,12 +106,12 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
 
     const dispatch: Dispatch<any> = useDispatch();
 
-    const changeSubjectIdentifier = React.useCallback(
+    const saveSubjectIdentifierToStore = React.useCallback(
         (step: number) => dispatch(setAttributesIdentifier(step)),
         [dispatch]
     );
 
-    const changeAttributesFRom = React.useCallback(
+    const saveAttributesIdentifierToStore = React.useCallback(
         (step: number) => dispatch(setSubjectIdentifier(step)),
         [dispatch]
     );
@@ -145,29 +145,29 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
 
     const onClick = () => {
         if (useSubjectFrom===step && !useSubjectFromThisStep){
-            changeSubjectIdentifier(1);
+            saveSubjectIdentifierToStore(1);
         }else if (!(useSubjectFrom===step) && useSubjectFromThisStep){
             if (step===null && nextStep===null) {
-                changeSubjectIdentifier(steps.length+1);
+                saveSubjectIdentifierToStore(steps.length+1);
             }else if (step===null) {
                 if (nextStep != null) {
-                    changeSubjectIdentifier(nextStep);
+                    saveSubjectIdentifierToStore(nextStep);
                 }
             }else {
-                changeSubjectIdentifier(step);
+                saveSubjectIdentifierToStore(step);
             }
         }
         if (useAttributesFrom===step && !useAttributesFromThisStep){
-            changeAttributesFRom(1);
+            saveAttributesIdentifierToStore(1);
         }else if(!(useAttributesFrom===step) && useAttributesFromThisStep){
             if (step===null && nextStep===null){
-                changeAttributesFRom(steps.length+1);
+                saveAttributesIdentifierToStore(steps.length+1);
             }else if (step===null){
                 if (nextStep != null) {
-                    changeAttributesFRom(nextStep);
+                    saveAttributesIdentifierToStore(nextStep);
                 }
             }else {
-                changeAttributesFRom(step);
+                saveAttributesIdentifierToStore(step);
             }
         }
         onDone(checkedList);
