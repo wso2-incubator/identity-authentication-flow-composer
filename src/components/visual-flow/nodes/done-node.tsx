@@ -47,5 +47,4 @@ export const DoneNode : FunctionComponent = () : ReactElement => {
             <div className="done-node-bottom-text">Done</div>
         </div>
     );
-
 };
