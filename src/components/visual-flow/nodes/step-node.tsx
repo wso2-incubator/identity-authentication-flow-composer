@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Node, Position } from "react-flow-renderer";
 import { MdDelete, MdModeEdit } from "react-icons/all";
 import { shallowEqual, useSelector } from "react-redux";
 import { Popup } from "semantic-ui-react";
@@ -25,14 +25,24 @@ import { AuthenticationStep } from "../../../models";
 import { Basic, IdentifierFirst, LoginBox } from "../../core";
 
 /**
+ * Step node interface prop types.
+ */
+export type StepNodeInterface = Node;
+
+/**
  * Step Node component.
+ *
+ * @param {StepNodeInterface} props - Props injected to the component.
  *
  * @return {React.ReactElement}
  */
-// eslint-disable-next-line react/prop-types,@typescript-eslint/ban-ts-comment
-// @ts-ignore
-export const StepNode: FunctionComponent = ({ data }) : ReactElement => {
+export const StepNode: FunctionComponent<StepNodeInterface> = (
+    props: StepNodeInterface
+) : ReactElement => {
 
+    const {
+        data
+    } = props;
 
     const stepId: number = data.text;
     const onClick: ()=>void = data.onClick;
