@@ -282,5 +282,4 @@ export const Edge = (
         targetHandle: targetHandler,
         type: "step"
     });
-
 };
