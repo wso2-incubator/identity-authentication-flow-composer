@@ -22,7 +22,7 @@ import { VscDebugRestart } from "react-icons/all";
 import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";
-import { AuthenticationStep } from "../../../models";
+import { AuthenticationSequenceInterface, AuthenticationSequenceType, AuthenticationStep } from "../../../models";
 import { GenerateCodeFromAst } from "../../mapper";
 import { AlertModal } from "../modals";
 
@@ -89,17 +89,15 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                 };
             });
 
-            const requestBody = {
-                authenticationSequence: {
-                    attributeStepId: attributeStepId,
-                    script: GenerateCodeFromAst(ast),
-                    steps: stepsToRequest,
-                    subjectStepId: subjectStepId,
-                    type: "USER_DEFINED"
-                }
+            const authenticationSequence: AuthenticationSequenceInterface = {
+                attributeStepId: attributeStepId,
+                script: GenerateCodeFromAst(ast),
+                steps: stepsToRequest,
+                subjectStepId: subjectStepId,
+                type: AuthenticationSequenceType.USER_DEFINED
             };
 
-            updateAuthenticationSequence(requestBody, appId).then(() => {
+            updateAuthenticationSequence(authenticationSequence, appId).then(() => {
                 setVisibleSuccessAlertModal(true);
             }).catch(() => {
                 setVisibleErrorAlertModal(true);
