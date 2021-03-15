@@ -4,8 +4,8 @@ Server. This approach allows users to define the authentication flows without an
 
 ### Setup Identity Server for the application
 
-* Install WSO2 Identity Server.
-* Add the following code to <IS_HOME>/repository/conf/deployment.toml in WSO2 Identity Server to allow CORS
+* Add the following code to `<IS_HOME>/repository/conf/deployment.toml` in WSO2 Identity Server to allow CORS.
+  In this guide, the installation location of WSO2 Identity Server is referred to as `<IS_HOME>`.
 ```toml
     [cors]
     allowed_origins = [
@@ -26,7 +26,7 @@ Server. This approach allows users to define the authentication flows without an
 ```    
 
     
-* Start the Identity Server using following commands from <IS_HOME>/bin.
+* Start the Identity Server using following commands from `<IS_HOME>/bin`.
 
 ##### 
     Linux   --> sh wso2server.sh
@@ -35,6 +35,6 @@ Server. This approach allows users to define the authentication flows without an
 ### Run the Application
 
 * Download or clone the project source code from [https://github.com/wso2-incubator/identity-authentication-flow-composer](https://github.com/wso2-incubator/identity-authentication-flow-composer)
-* Run `npm install` from the command line in the project root directory.
+* Run `npm install` from the command line in the project root directory to install all dependencies.
 * Run `npm start`.
 * Open http://localhost:3000 to view the application in the browser.
