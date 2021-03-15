@@ -16,9 +16,4 @@
  * under the License.
  */
 
-export * from "./header";
-export * from "./sidebar";
-export * from "./modals";
-export * from "./cards";
-export * from "./typography";
-export * from "./svg";
+export * from "./app-header";
