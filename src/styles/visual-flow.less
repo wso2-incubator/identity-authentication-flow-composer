@@ -19,8 +19,8 @@
 /**
  * Variables related to visual flow styles
  */
-@visual-flow-header-height: 5%;
-@visual-flow-width: 60%;
+@visual-flow-header-height: 5.5%;
+@visual-flow-width: 65%;
 @visual-flow-height: 100%;
 
 /**
@@ -30,6 +30,7 @@
     width: @visual-flow-width;
     height: @visual-flow-height;
     border-bottom: 1px solid #49494c;
+    border-top: 1px solid #49494c;
 }
 
 .visual-flow-header{
@@ -41,7 +42,7 @@
 }
 
 .react-flow-container {
-    height: 95%;
+    height: 100% - @visual-flow-header-height;
     width: 100%;
     justify-self: center;
     display: flex;
