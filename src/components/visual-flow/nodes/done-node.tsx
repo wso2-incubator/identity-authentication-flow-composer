@@ -39,6 +39,7 @@ export const DoneNode : FunctionComponent = () : ReactElement => {
                 className="hidden-handle"
                 type="target"
                 position={ Position.Top }
+                style = { { top: 40 } }
                 id="targetTop"
             />
             <div>
