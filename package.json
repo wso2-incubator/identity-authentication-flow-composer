@@ -31,7 +31,10 @@
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "bootstrap": "npm install",
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+        "lint:ci": "eslint -c .eslintrc.js $(git diff --diff-filter=d --name-only | grep -E \"(.js$|.ts$|.jsx$|.tsx$)\")"
     },
     "eslintConfig": {
         "extends": [
