@@ -38,3 +38,12 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Bootstrap
+        id: install-npm-modules
+        run: npm run bootstrap
+      - name: Lint
+        id: lint
+        run: npm run lint:ci
+      - name: Build
+        id: build-with-npm
+        run: npm run build
