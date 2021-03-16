@@ -18,6 +18,7 @@
 
 import axios from "axios";
 import { getApplicationsResourceEndpoints } from "../configs";
+import { AuthenticationSequenceInterface } from "../models";
 
 /**
  * Gets the application details.
@@ -100,16 +101,17 @@ export const getTemplates = () : Promise<any> => {
 /**
  * Gets the authenticators or the idp list.
  *
- * @param {string} requestBody
+ * @param {AuthenticationSequenceInterface} authenticationSequence
  * @param {string|null} appId
  *
  * @return {Promise<any>} A promise containing the response.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const updateAuthenticationSequence = (requestBody: any, appId: string|null) : Promise<any> => {
+export const updateAuthenticationSequence = (
+    authenticationSequence: AuthenticationSequenceInterface, appId: string|null
+) : Promise<any> => {
     return axios.patch(
         `${getApplicationsResourceEndpoints().applications}${appId}`,
-        requestBody,
+        { authenticationSequence: authenticationSequence },
         {
             headers: {
                 "Accept": "application/json",

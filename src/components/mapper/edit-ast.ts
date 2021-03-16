@@ -112,12 +112,11 @@ export const AddSuccessFailureStepsBeforeCondition = (ast: File, condition:strin
  * @param {File} ast
  * @param {string} step
  * @param {string} condition
- * @param {any} params
+ * @param {any|any[]} params
  *
  * @return {File} New ast
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const AddCondition = (ast:File, step:string, condition:string, params?:any) : File => {
+export const AddCondition = (ast:File, step:string, condition:string, params?:any|any[]) : File => {
     const path = GetPathOfStep(ast, step);
     const successPath = GetSuccessFailurePath(path.node, path.scope, path.parentPath, path.state, "success");
     if(successPath===null){
@@ -139,14 +138,13 @@ export const AddCondition = (ast:File, step:string, condition:string, params?:an
  *
  * @param {File} ast
  * @param {string} condition
- * @param {any} params
+ * @param {any|any[]} params
  * @param {string} beforeStep
  * 
  * @return {File} New ast
  */
 export const AddConditionBeforeStep = (
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    ast: File, beforeStep:string, condition: string, params:any
+    ast: File, beforeStep:string, condition: string, params:any|any[]
 ) : File => {
     const pathBefore = GetPathOfStep(ast, beforeStep);
     const args = pathBefore.parentPath.parent.body[0];

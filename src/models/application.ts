@@ -16,8 +16,33 @@
  * under the License.
  */
 
-export * from "./reducer-state";
-export * from "./step";
-export * from "./template";
-export * from "./endpoints";
-export * from "./application";
+/**
+ *  Captures application related configuration.
+ */
+
+export enum AuthenticationSequenceType {
+    DEFAULT = "DEFAULT",
+    USER_DEFINED = "USER_DEFINED"
+}
+
+export interface AuthenticatorInterface {
+    idp: string;
+    authenticator: string;
+}
+
+export interface AuthenticationStepInterface {
+    id: number;
+    options: AuthenticatorInterface[];
+}
+
+/**
+ * Authentication Sequence model.
+ */
+export interface AuthenticationSequenceInterface  {
+    type?: AuthenticationSequenceType;
+    steps?: AuthenticationStepInterface[];
+    requestPathAuthenticators?: string[];
+    script?: string;
+    subjectStepId?: number;
+    attributeStepId?: number;
+}

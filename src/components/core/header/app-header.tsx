@@ -22,7 +22,7 @@ import { VscDebugRestart } from "react-icons/all";
 import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";
-import { AuthenticationStep } from "../../../models";
+import { AuthenticationSequenceInterface, AuthenticationSequenceType, AuthenticationStep } from "../../../models";
 import { GenerateCodeFromAst } from "../../mapper";
 import { AlertModal } from "../modals";
 
@@ -51,7 +51,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
             });
         getAuthenticators("idp")
             .then((response) => {
-                setAuthFactors((elements: any)=>[...elements, response.data.identityProviders]);
+                setAuthFactors((elements: any)=>[...elements, ...response.data.identityProviders]);
             })
             .catch((error) => {
                 throw new Error(error);
@@ -59,7 +59,9 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
     }, []);
 
     const getInfo = (option:any) : any => {
-        return authFactors.filter((factor:any)=>factor.displayName===option);
+        return authFactors.filter((factor:any)=> {
+            return factor.displayName ? factor.displayName === option : factor.name === option;
+        });
     };
 
     const [ast, steps, subjectStepId, attributeStepId] : [File, AuthenticationStep[], number, number] = useSelector(
@@ -82,24 +84,27 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                     options: step.authenticators.map((option: any) => {
                         const optionInfo: any = getInfo(option)[0];
                         return {
-                            authenticator: optionInfo.name,
-                            idp: optionInfo.type
+                            authenticator: optionInfo.type ? optionInfo.name :
+                                optionInfo.federatedAuthenticators.authenticators.find(
+                                    (authenticator:any) =>
+                                        authenticator.authenticatorId===optionInfo.federatedAuthenticators.
+                                            defaultAuthenticatorId
+                                ).name,
+                            idp: optionInfo.type ? optionInfo.type : optionInfo.name
                         };
                     })
                 };
             });
 
-            const requestBody = {
-                authenticationSequence: {
-                    attributeStepId: attributeStepId,
-                    script: GenerateCodeFromAst(ast),
-                    steps: stepsToRequest,
-                    subjectStepId: subjectStepId,
-                    type: "USER_DEFINED"
-                }
+            const authenticationSequence: AuthenticationSequenceInterface = {
+                attributeStepId: attributeStepId,
+                script: GenerateCodeFromAst(ast),
+                steps: stepsToRequest,
+                subjectStepId: subjectStepId,
+                type: AuthenticationSequenceType.USER_DEFINED
             };
 
-            updateAuthenticationSequence(requestBody, appId).then(() => {
+            updateAuthenticationSequence(authenticationSequence, appId).then(() => {
                 setVisibleSuccessAlertModal(true);
             }).catch(() => {
                 setVisibleErrorAlertModal(true);
@@ -144,7 +149,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                 type = "error"
                 header= "Error!"
                 content= "Something went wrong."
-                primaryButtonLabel= "Confirm"
+                primaryButtonLabel= "OK"
                 onButtonClick={ ()=>{ setVisibleErrorAlertModal(false); } }
             />
         </header>

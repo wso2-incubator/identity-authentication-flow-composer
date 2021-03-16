@@ -95,12 +95,11 @@ export const createExpressionStatement = (step:string) : type.ExpressionStatemen
  * Create a expression statement with a identifier, a numerical literal and a object expression.
  *
  * @param {string} step
- * @param {any} args
+ * @param {type.Statement} args
  *
  * @return {type.ExpressionStatement}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const createExpressionStatementWithSuccess = (step:string, args:any) : type.ExpressionStatement=> {
+export const createExpressionStatementWithSuccess = (step:string, args:type.Statement) : type.ExpressionStatement=> {
     return type.expressionStatement(type.callExpression(type.identifier(syntax.stepExecutor),
         [type.numericLiteral(+step), type.objectExpression(
             [type.objectProperty(
@@ -116,12 +115,13 @@ export const createExpressionStatementWithSuccess = (step:string, args:any) : ty
  * Create a variable declaration for the condition.
  *
  * @param {string} condition
- * @param {any} params
+ * @param {any|any[]} params
  *
  * @return {type.VariableDeclaration}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const createVariableDeclarationForCondition = (condition:string, params?:any) : type.VariableDeclaration => {
+export const createVariableDeclarationForCondition = (
+    condition:string, params?:any|any[]
+) : type.VariableDeclaration => {
     let parameters: any = type.arrayExpression([]);
     let variableNameForParameters = syntax.params;
     if (condition==="hasRole"){
@@ -156,12 +156,11 @@ export const createIfStatement = (condition:string) : type.IfStatement => {
  * Create a if statement with arguments.
  *
  * @param {string} condition
- * @param {any} args
+ * @param {type.Statement} args
  *
  * @return {type.IfStatement}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const createIfStatementWithArguments = (condition:string, args:any) : type.IfStatement => {
+export const createIfStatementWithArguments = (condition:string, args:type.Statement) : type.IfStatement => {
     return type.ifStatement(type.callExpression(
         type.identifier(condition),
         [type.identifier(syntax.context)]), type.blockStatement([args])
