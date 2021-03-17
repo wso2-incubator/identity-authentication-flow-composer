@@ -1,4 +1,4 @@
-<h1 align = "center">Authentication Flow Composer</h1>
+<h1 align="center">Authentication Flow Composer</h1>
 
 <p align="center">
   <br>
