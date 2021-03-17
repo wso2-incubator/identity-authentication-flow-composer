@@ -2,6 +2,9 @@
     "name": "@wso2is/identity-authentication-flow-composer",
     "version": "0.1.0",
     "private": true,
+    "description": "A UI based tool to design and configure the authentication flows",
+    "repository": "https://github.com/wso2-incubator/identity-authentication-flow-composer",
+    "license": "Apache-2.0",
     "dependencies": {
         "@monaco-editor/react": "^4.0.11",
         "@testing-library/jest-dom": "^5.11.9",
