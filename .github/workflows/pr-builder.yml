@@ -43,7 +43,7 @@ jobs:
         run: npm run bootstrap
       - name: Lint
         id: lint-source-code
-        run: npm run lint:ci
+        run: npm run lint
       - name: Build
         id: build-with-npm
         run: npm run build
