@@ -2,8 +2,8 @@
 
 <p align="center">
   <br>
-  Authentication Flow Composer is a UI-based tool to design and configure the authentication flows for the WSO2 Identity
-  Server. 
+  A UI-based tool to design and configure the authentication flows for the WSO2 Identity
+  Server.<br>
   This approach allows users to define the authentication flows without any prior syntax knowledge.
   <br>
 </p>
