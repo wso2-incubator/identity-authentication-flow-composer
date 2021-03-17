@@ -32,7 +32,7 @@
         "build": "react-app-rewired build",
         "eject": "react-scripts eject",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-        "lint:ci": "eslint -c .eslintrc.js $(git diff --diff-filter=d --name-only | grep -E \"(.js$|.ts$|.jsx$|.tsx$)\")",
+        "lint:ci": "eslint -c .eslintrc.js $(git diff --name-only origin/main | grep -E \"(.js$|.ts$|.jsx$|.tsx$)\")",
         "start": "react-app-rewired start",
         "test": "react-app-rewired test"
     },
