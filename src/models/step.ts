@@ -23,4 +23,3 @@ export interface AuthenticationStep {
     stepId: number,
     authenticators: string[]
 }
-
