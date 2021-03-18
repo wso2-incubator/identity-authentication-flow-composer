@@ -77,12 +77,11 @@ export const GetHarmfulOperations = (ast:File) : number[] => {
  * @param {File} ast
  * @param {Scope} scope
  * @param {NodePath} parentPath
- * @param {any} state
+ * @param {Node} state
  * 
  * @return {any}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const GetStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePath, state:any): any => {
+export const GetStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
     let successSteps: Record<string, unknown>|undefined = undefined;
     try {
         traverse(ast, {
@@ -112,12 +111,11 @@ export const GetStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePa
  * @param {File} ast
  * @param {Scope} scope
  * @param {NodePath} parentPath
- * @param {any} state
+ * @param {Node} state
  *
  * @return {number|undefined}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const GetStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePath, state:any)
+export const GetStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePath, state:Node)
     : number|undefined => {
     const failSteps: number[] = [];
     traverse(ast, {
@@ -141,8 +139,7 @@ export const GetStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePa
  *
  * @return {any}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const GetCondition = (ast : File, scope:Scope, parentPath:NodePath, state:any): any=> {
+export const GetCondition = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any=> {
     let condition: string|undefined = undefined;
     let success: any[] = [];
     try {
@@ -203,8 +200,7 @@ export const GetConditionArguments = (ast : File): any => {
  *
  * @return {number[]}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const GetCallExpressionsInPath = (ast : File, scope:Scope, parentPath:NodePath, state:any): any => {
+export const GetCallExpressionsInPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
     const steps: number[] = [];
     traverse(ast, {
         CallExpression(path: any){
@@ -240,11 +236,11 @@ export const GetAllStepsFromAst = (ast : File) : any[] => {
                 }
             }
         });
+        return(stepsArray);
     }
     catch(error){
-        throw new Error(error);
+        return(stepsArray);
     }
-    return(stepsArray);
 };
 
 /**
@@ -306,14 +302,13 @@ export const GetConditionPathWithLastStep = (ast:File, condition:string) : any[]
  * @param {File} ast
  * @param {Scope} scope
  * @param {NodePath} parentPath
- * @param {any} state
+ * @param {Node} state
  * @param {string} type
  * 
  * @return {any}
  */
 export const GetSuccessFailurePath =
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    (ast : File, scope:Scope, parentPath:NodePath, state:any, type:string) : any => {
+    (ast : File, scope:Scope, parentPath:NodePath, state:Node, type:string) : any => {
         let successPath : any = null;
         traverse(ast, {
             ObjectMember(path: any){
