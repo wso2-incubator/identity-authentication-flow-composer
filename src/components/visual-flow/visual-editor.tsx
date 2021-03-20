@@ -42,15 +42,15 @@ import {
     setIntermediateAuthenticationStep
 } from "../../store/actions/actions";
 import {
-    AddCondition,
-    AddConditionBeforeStep, AddStepToCondition,
-    AddSuccessFailureSteps,
-    AddSuccessFailureStepsBefore,
-    AddSuccessFailureStepsBeforeCondition,
-    DeleteStep,
-    GetAllStepsFromAst, GetConditionArguments,
-    GetHarmfulOperations,
-    HasLoginRequest
+    addCondition,
+    addConditionBeforeStep, addStepToCondition,
+    addSuccessFailureSteps,
+    addSuccessFailureStepsBefore,
+    addSuccessFailureStepsBeforeCondition,
+    deleteStep,
+    getAllStepsFromAst, getConditionArguments,
+    getHarmfulOperations,
+    hasLoginRequest
 } from "../../utils";
 import { ComponentSelector, ConditionsList, StepConfigurationModal } from "../core";
 
@@ -139,7 +139,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
         [dispatch]
     );
 
-    const stepsArray = GetAllStepsFromAst(ast);
+    const stepsArray = getAllStepsFromAst(ast);
 
     const addEdge = (
         source:string, target:string, color:string, label?:string, handler?:string, targetHandler?:string,
@@ -273,11 +273,11 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
             if(isNaN(+nextStep)) {
                 // [newAst, step] = AddSuccessFailureStepsBeforeCondition(ast, beforeStep);
             }else{
-                newAst = AddConditionBeforeStep(ast, nextStep, condition, params);
+                newAst = addConditionBeforeStep(ast, nextStep, condition, params);
             }
             setNextStep(null);
         }else{
-            newAst = AddCondition(ast, lastStep, condition, params);
+            newAst = addCondition(ast, lastStep, condition, params);
             setEndsWithCondition(condition);
         }
         saveAstToStore(newAst);
@@ -298,7 +298,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
     };
 
     const onClickDelete = (step:string) => {
-        const newAst = DeleteStep(ast, step);
+        const newAst = deleteStep(ast, step);
         saveAstToStore(newAst);
     };
 
@@ -316,26 +316,26 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
             if(successFailure!==null){
                 currentStep=successFailure[0];
                 stepType="failure";
-                newAst = AddSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
+                newAst = addSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
             }else if (nextStep!==null){
                 if(isNaN(+nextStep)) {
-                    [newAst, step] = AddSuccessFailureStepsBeforeCondition(ast, nextStep);
+                    [newAst, step] = addSuccessFailureStepsBeforeCondition(ast, nextStep);
                 }else{
-                    newAst = AddSuccessFailureStepsBefore(ast, nextStep);
+                    newAst = addSuccessFailureStepsBefore(ast, nextStep);
                     step = nextStep;
                 }
                 saveIntermediateAuthenticationStepToStore(+step, authFactors);
                 setNextStep(null);
             }
             else if (endsWithCondition===null){
-                newAst = AddSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
+                newAst = addSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
             }
             else{
-                newAst = AddStepToCondition(ast, endsWithCondition, (+lastStep + 1).toString());
+                newAst = addStepToCondition(ast, endsWithCondition, (+lastStep + 1).toString());
                 setEndsWithCondition(null);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
@@ -388,7 +388,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
 
                 if(condition!==undefined && uniqueNodeIdList.indexOf(condition)===-1){
                     addElement("plus "+condition, x-gapX/2-15, y+201.5, "plus");
-                    addElement(condition, x, y+185.5, "condition", GetConditionArguments(ast).toString());
+                    addElement(condition, x, y+185.5, "condition", getConditionArguments(ast).toString());
                     addEdge(uniqueNodeIdList[uniqueNodeIdList.length-2], "plus "+condition, "#D6D5E6");
                     addEdge("plus "+condition, condition, "#D6D5E6");
                     addEdge(condition, "done", "red", "Else","sourceTop",
@@ -452,7 +452,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
     return (
         <>
             {
-                (HasLoginRequest(ast) && GetHarmfulOperations(ast).length===0) ? (
+                (hasLoginRequest(ast) && getHarmfulOperations(ast).length===0) ? (
                     <div className="react-flow-container">
                         <ComponentSelector
                             isOpen={ visibleComponentSelector }
@@ -494,7 +494,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
                             />
                         </ReactFlow>
                     </div>
-                ) : GetHarmfulOperations(ast).length>0 ?
+                ) : getHarmfulOperations(ast).length>0 ?
                     (<div className="warning">
                         <div className="warning-header"><AiFillWarning className="warning-icon"/>Error</div>
                         <div className="warning-content">

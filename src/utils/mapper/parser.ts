@@ -19,7 +19,7 @@
 import { parse } from "@babel/parser";
 import { File } from "@babel/types";
 
-export const ParseToAst = (value:string) : File => {
+export const parseToAst = (value:string) : File => {
     try {
         return parse(value);
     }catch (e) {

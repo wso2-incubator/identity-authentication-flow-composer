@@ -23,7 +23,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";
 import { AuthenticationSequenceInterface, AuthenticationSequenceType, AuthenticationStep } from "../../../models";
-import { GenerateCodeFromAst } from "../../../utils";
+import { generateCodeFromAst } from "../../../utils";
 import { AlertModal } from "../modals";
 
 
@@ -98,7 +98,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
 
             const authenticationSequence: AuthenticationSequenceInterface = {
                 attributeStepId: attributeStepId,
-                script: GenerateCodeFromAst(ast),
+                script: generateCodeFromAst(ast),
                 steps: stepsToRequest,
                 subjectStepId: subjectStepId,
                 type: AuthenticationSequenceType.USER_DEFINED

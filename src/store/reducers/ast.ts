@@ -17,15 +17,15 @@
  */
 
 import _ from "lodash";
-import { ParseToAst, begin } from "../../components";
 import { AstReducerStateStateInterface } from "../../models";
+import { begin, parseToAst } from "../../utils";
 import { ActionTypes, ReduxActions } from "../actions";
 
 /**
  * Ast Reducer initial state.
  */
 const initialState: AstReducerStateStateInterface = {
-    ast: ParseToAst(begin),
+    ast: parseToAst(begin),
     changedFromVisualEditor: false
 };
 

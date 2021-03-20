@@ -31,7 +31,7 @@ import {
     createSuccessPropertyWithCondition,
     createVariableDeclarationForCondition
 } from "./generate-babel-types";
-import { GetConditionPathWithLastStep, GetPathOfStep, GetSuccessFailurePath } from "./traverse-ast";
+import { getConditionPathWithLastStep, getPathOfStep, getSuccessFailurePath } from "./traverse-ast";
 
 /**
  * Add a new step at the end of a the success or failure path of a step.
@@ -43,10 +43,10 @@ import { GetConditionPathWithLastStep, GetPathOfStep, GetSuccessFailurePath } fr
  * 
  * @return {File} New ast
  */
-export const AddSuccessFailureSteps = 
+export const addSuccessFailureSteps =
     (ast: File, currentStep: string, nextStep: string, stepType:string) : File => {
-        const path = GetPathOfStep(ast, currentStep);
-        const successPath = GetSuccessFailurePath(path.node, path.scope, path.parentPath, path.state, stepType);
+        const path = getPathOfStep(ast, currentStep);
+        const successPath = getSuccessFailurePath(path.node, path.scope, path.parentPath, path.state, stepType);
         if (successPath === null) {
             const key = (stepType==="success")?syntax.onSuccess : syntax.onFail;
             if(path.node.arguments.length===1) {
@@ -68,8 +68,8 @@ export const AddSuccessFailureSteps =
  *
  * @return {File} New ast
  */
-export const AddSuccessFailureStepsBefore = (ast: File, beforeStep:string) : File => {
-    const pathBefore = GetPathOfStep(ast, beforeStep);
+export const addSuccessFailureStepsBefore = (ast: File, beforeStep:string) : File => {
+    const pathBefore = getPathOfStep(ast, beforeStep);
     traverse(ast, {
         CallExpression(path: any) {
             if (path.node.callee.name === syntax.stepExecutor && path.node.arguments[0].value > +beforeStep-1) {
@@ -92,8 +92,8 @@ export const AddSuccessFailureStepsBefore = (ast: File, beforeStep:string) : Fil
  *
  * @return {[File, number]} New ast, New step id
  */
-export const AddSuccessFailureStepsBeforeCondition = (ast: File, condition:string) : [File, number] => {
-    const [lastStep, pathBefore] = GetConditionPathWithLastStep(ast, condition);
+export const addSuccessFailureStepsBeforeCondition = (ast: File, condition:string) : [File, number] => {
+    const [lastStep, pathBefore] = getConditionPathWithLastStep(ast, condition);
     traverse(ast, {
         CallExpression(path: any) {
             if (path.node.callee.name === syntax.stepExecutor && path.node.arguments[0].value > lastStep) {
@@ -116,9 +116,9 @@ export const AddSuccessFailureStepsBeforeCondition = (ast: File, condition:strin
  *
  * @return {File} New ast
  */
-export const AddCondition = (ast:File, step:string, condition:string, params?:any|any[]) : File => {
-    const path = GetPathOfStep(ast, step);
-    const successPath = GetSuccessFailurePath(path.node, path.scope, path.parentPath, path.state, "success");
+export const addCondition = (ast:File, step:string, condition:string, params?:any|any[]) : File => {
+    const path = getPathOfStep(ast, step);
+    const successPath = getSuccessFailurePath(path.node, path.scope, path.parentPath, path.state, "success");
     if(successPath===null){
         if(path.node.arguments.length===1) {
             path.node.arguments.push(createObjectExpressionWithCondition(syntax.onSuccess, condition));
@@ -143,10 +143,10 @@ export const AddCondition = (ast:File, step:string, condition:string, params?:an
  * 
  * @return {File} New ast
  */
-export const AddConditionBeforeStep = (
+export const addConditionBeforeStep = (
     ast: File, beforeStep:string, condition: string, params:any|any[]
 ) : File => {
-    const pathBefore = GetPathOfStep(ast, beforeStep);
+    const pathBefore = getPathOfStep(ast, beforeStep);
     const args = pathBefore.parentPath.parent.body[0];
     pathBefore.parentPath.parent.body[0] = createIfStatementWithArguments(condition, args);
     ast.program.body.unshift(parse(syntax.getConditionSyntax(condition)).program.body[0]);
@@ -163,7 +163,7 @@ export const AddConditionBeforeStep = (
  *
  * @return {File} New ast
  */
-export const AddStepToCondition = (ast:File, condition:string, step:string): File => {
+export const addStepToCondition = (ast:File, condition:string, step:string): File => {
     traverse(ast, {
         IfStatement(path: any){
             if (path.node.test.callee && path.node.test.callee.name===condition) {
@@ -182,8 +182,8 @@ export const AddStepToCondition = (ast:File, condition:string, step:string): Fil
  *
  * @return {File} New ast
  */
-export const DeleteStep = (ast:File, step:string) : File => {
-    const parentPath = GetPathOfStep(ast, step).parentPath;
+export const deleteStep = (ast:File, step:string) : File => {
+    const parentPath = getPathOfStep(ast, step).parentPath;
     delete(parentPath.parent.body[parentPath.key]);
     return ast;
 };
