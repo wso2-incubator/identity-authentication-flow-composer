@@ -125,12 +125,12 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
     const dispatch: Dispatch<any> = useDispatch();
 
     const saveAuthenticationStepToStore = React.useCallback(
-        (step: number, factors:string[]) => dispatch(setAuthenticationStep(step, factors)),
+        (step: number, factors: string[]) => dispatch(setAuthenticationStep(step, factors)),
         [dispatch]
     );
 
     const saveIntermediateAuthenticationStepToStore = React.useCallback(
-        (step: number, factors:string[]) => dispatch(setIntermediateAuthenticationStep(step, factors)),
+        (step: number, factors: string[]) => dispatch(setIntermediateAuthenticationStep(step, factors)),
         [dispatch]
     );
 
@@ -142,8 +142,8 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
     const stepsArray = getAllStepsFromAst(ast);
 
     const addEdge = (
-        source:string, target:string, color:string, label?:string, handler?:string, targetHandler?:string,
-        custom:boolean=false
+        source: string, target: string, color: string, label?: string, handler?: string, targetHandler?: string,
+        custom: boolean = false
     ) => {
         if(custom) {
             setFlowElements((elements:any[])=>[
@@ -162,55 +162,56 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
         }
     };
 
-    const addElement = (step:string, xVal:number, yVal:number, type?:string, args?:string[]) => {
+    const addElement = (step: string, xVal: number, yVal: number, type?: string, args?: string[]) => {
 
-        if(type==="start"){
-            setFlowElements((elements:any[])=>[...elements, StartElement(step, xVal, yVal)]);
-        }else if(type==="condition"){
-            setFlowElements((elements:any[])=>[...elements, ConditionElement(step, step, xVal, yVal, args)]);
+        if (type === "start") {
+            setFlowElements((elements: any[]) => [...elements, StartElement(step, xVal, yVal)]);
+        } else if (type === "condition") {
+            setFlowElements((elements: any[]) => [...elements, ConditionElement(step, step, xVal, yVal, args)]);
             uniqueNodeIdList.push(step);
             stepsToSuccess.push(step);
-        }else if (type==="done"){
-            setFlowElements((elements:any[])=>[...elements, DoneElement(step, xVal, yVal)]);
-        }else if (type==="plus") {
+        } else if (type === "done") {
+            setFlowElements((elements: any[]) => [...elements, DoneElement(step, xVal, yVal)]);
+        } else if (type === "plus") {
             setFlowElements((elements: any[]) => [...elements, PlusElement(step, xVal, yVal)]);
-        }else if(type==="connector"){
+        } else if (type === "connector") {
             setFlowElements((elements: any[]) => [...elements, ConnectorElement(step, xVal, yVal)]);
-        } else{
+        } else {
             const elementList: any[] = [];
-            const authFactorsWithStep = steps.filter((element:any)=>element.stepId===step);
-            elementList.push(AuthenticationStepElement(step, xVal, yVal, ()=>onClickDelete(step),
-                ()=>showAuthenticatorsList(step)));
+            const authFactorsWithStep = steps.filter((element: any) => element.stepId === step);
+            elementList.push(AuthenticationStepElement(step, xVal, yVal, () => onClickDelete(step),
+                () => showAuthenticatorsList(step)));
             uniqueNodeIdList.push(step);
             lastStep = step;
-            if (authFactorsWithStep.length>0){
+            if (authFactorsWithStep.length > 0) {
                 const isBasicIncluded = authFactorsWithStep[0].authenticators.indexOf("basic") !== -1;
                 let authenticatorOptions;
-                if(isBasicIncluded) {
-                    authenticatorOptions=authFactorsWithStep[0].authenticators.filter((factor:any)=>factor!=="basic");
+                if (isBasicIncluded) {
+                    authenticatorOptions = authFactorsWithStep[0].authenticators.filter(
+                        (factor: any) => factor !== "basic");
                 } else {
-                    authenticatorOptions=authFactorsWithStep[0].authenticators;
+                    authenticatorOptions = authFactorsWithStep[0].authenticators;
                 }
-                if (authenticatorOptions.length>0) {
+                if (authenticatorOptions.length > 0) {
                     elementList.push(ConnectorElement(step + "connector", xVal + 650, yVal - 12.5 + stepHeight));
-                    uniqueNodeIdList.push(step+"connector");
-                    if (isBasicIncluded){
+                    uniqueNodeIdList.push(step + "connector");
+                    if (isBasicIncluded) {
                         elementList.push(Edge(`${step}${step + "connector"}`, step, step + "connector",
                             " Basic ", "#D6D5E6", undefined, "targetLeft"));
                     }
-                    const indexToSplit = authenticatorOptions.length/2;
-                    let firstHalf:any[]=[], secondHalf:any[] =[];
-                    if (!isBasicIncluded && authenticatorOptions.length===1){
-                        const factor=authenticatorOptions[0];
+                    const indexToSplit = authenticatorOptions.length / 2;
+                    let firstHalf: any[] = [];
+                    let secondHalf: any[] = [];
+                    if (!isBasicIncluded && authenticatorOptions.length === 1) {
+                        const factor = authenticatorOptions[0];
                         elementList.push(AuthenticationOptionElement(step + factor, factor, xVal + 350,
-                            yVal+stepHeight/2-28.5));
+                            yVal + stepHeight / 2 - 28.5));
                         elementList.push(CustomEdge(`${step}${step + factor}`, step, step + factor,
                             undefined, "#D6D5E6", undefined, undefined));
                         elementList.push(CustomEdge(`${step + factor}${step + "connector"}`, step + factor,
                             step + "connector", undefined, "#D6D5E6", undefined,
                             "targetLeft", undefined));
-                    }
-                    else{
+                    } else {
                         if (authenticatorOptions.length === 1) {
                             firstHalf = authenticatorOptions;
                         } else {
@@ -226,7 +227,7 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
                                 -10 * (+index1 + 1)));
                             elementList.push(CustomEdge(`${step + factor1}${step + "connector"}`,
                                 step + factor1, step + "connector", undefined, "#D6D5E6",
-                                undefined, "targetTop", undefined, 10*+index1));
+                                undefined, "targetTop", undefined, 10 * +index1));
                         }
                         for (const index in secondHalf) {
                             const factor = secondHalf[index];
@@ -266,82 +267,82 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
         setVisibleConditionsModal(true);
     };
 
-    const addConditionToFlow = (condition:string, params?:any) => {
+    const addConditionToFlow = (condition: string, params?: any) => {
         let newAst : any;
         setVisibleConditionsModal(false);
-        if (nextStep!==null){
-            if(isNaN(+nextStep)) {
+        if (nextStep !== null){
+            if (isNaN(+nextStep)) {
                 // [newAst, step] = AddSuccessFailureStepsBeforeCondition(ast, beforeStep);
-            }else{
+            } else {
                 newAst = addConditionBeforeStep(ast, nextStep, condition, params);
             }
             setNextStep(null);
-        }else{
+        } else {
             newAst = addCondition(ast, lastStep, condition, params);
             setEndsWithCondition(condition);
         }
         saveAstToStore(newAst);
     };
 
-    const onClick = (element:any) => {
-        if(element.type==="plus"){
+    const onClick = (element: any) => {
+        if (element.type === "plus") {
             const newStep = element.id.split(" ")[1].split(".")[0];
-            if(newStep!=="final"){
+            if (newStep !== "final") {
                 setNextStep(newStep);
             }
             setVisibleComponentSelector(true);
             setSuccessFailure(null);
-        }else if(element.type==="failure"){
+        } else if(element.type === "failure") {
             setSuccessFailure(element.id);
             setVisibleStepConfigurationModal(true);
         }
     };
 
-    const onClickDelete = (step:string) => {
+    const onClickDelete = (step: string) => {
         const newAst = deleteStep(ast, step);
         saveAstToStore(newAst);
     };
 
-    const showAuthenticatorsList = (step:string) => {
+    const showAuthenticatorsList = (step: string) => {
         setVisibleStepConfigurationModal(true);
         setStep(step);
     };
 
-    const onStepConfigModalDone = (authFactors:any[]) => {
+    const onStepConfigModalDone = (authFactors: any[]) => {
         let step: number;
-        if (stepToViewAuthFactors===null) {
+        if (stepToViewAuthFactors === null) {
             let newAst;
             let currentStep = lastStep;
             let stepType = "success";
-            if(successFailure!==null){
-                currentStep=successFailure[0];
-                stepType="failure";
+            if (successFailure !== null) {
+                currentStep = successFailure[0];
+                stepType = "failure";
                 newAst = addSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
-            }else if (nextStep!==null){
-                if(isNaN(+nextStep)) {
+            } else if (nextStep !== null){
+                if (isNaN(+nextStep)) {
                     [newAst, step] = addSuccessFailureStepsBeforeCondition(ast, nextStep);
-                }else{
+                } else {
                     newAst = addSuccessFailureStepsBefore(ast, nextStep);
                     step = nextStep;
                 }
                 saveIntermediateAuthenticationStepToStore(+step, authFactors);
                 setNextStep(null);
             }
-            else if (endsWithCondition===null){
+            else if (endsWithCondition === null) {
                 newAst = addSuccessFailureSteps(ast, currentStep, (+lastStep + 1).toString(), stepType);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
             }
-            else{
+            else {
                 newAst = addStepToCondition(ast, endsWithCondition, (+lastStep + 1).toString());
                 setEndsWithCondition(null);
                 step = lastStep + 1;
                 saveAuthenticationStepToStore(step, authFactors);
             }
             saveAstToStore(newAst);
-        }else{
+        }else {
             step = stepToViewAuthFactors;
             saveAuthenticationStepToStore(step, authFactors);
             setStep(null);
@@ -349,10 +350,10 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
         setVisibleStepConfigurationModal(false);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         uniqueNodeIdList = [];
         stepsToSuccess = [];
-        x=20; y=200; lastStepY=100; lastStepY = 200;
+        x = 20; y = 200; lastStepY = 100; lastStepY = 200;
         setFlowElements([]);
         setVisibleComponentSelector(false);
         setVisibleStepConfigurationModal(false);
@@ -365,40 +366,40 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
             const onSuccessPath = step.onSuccess;
             const onFailurePath = step.onFail;
 
-            if (uniqueNodeIdList.indexOf(currentStep)===-1){
-                if(uniqueNodeIdList.length<1){
+            if (uniqueNodeIdList.indexOf(currentStep) === -1) {
+                if (uniqueNodeIdList.length < 1) {
                     addElement("start", x, y+stepHeight - 31.5, "start");
                     addEdge("start", "plus "+currentStep, "#D6D5E6");
-                    x+=gapX+115;
-                }else{
-                    y=lastStepY;
-                    const last = uniqueNodeIdList[uniqueNodeIdList.length-1];
-                    addEdge(last, "plus "+currentStep, "#D6D5E6");
+                    x += gapX+115;
+                } else {
+                    y = lastStepY;
+                    const last = uniqueNodeIdList[uniqueNodeIdList.length - 1];
+                    addEdge(last, "plus " + currentStep, "#D6D5E6");
                 }
-                addElement("plus "+currentStep, x-gapX/2-15, y+stepHeight-18.5, "plus");
+                addElement("plus " + currentStep, x - gapX/2 - 15, y + stepHeight - 18.5, "plus");
                 addElement(currentStep, x, y);
-                addEdge("plus "+currentStep, currentStep, "#D6D5E6");
-                x+=stepWidth + gapX;
+                addEdge("plus " + currentStep, currentStep, "#D6D5E6");
+                x += stepWidth + gapX;
             }
 
-            if (onSuccessPath!==undefined){
+            if (onSuccessPath !== undefined){
                 const condition = onSuccessPath.condition;
                 const successPath = onSuccessPath.onConditionSuccess;
-                const remainSuccess=onSuccessPath.remainingSuccess;
+                const remainSuccess = onSuccessPath.remainingSuccess;
 
-                if(condition!==undefined && uniqueNodeIdList.indexOf(condition)===-1){
-                    addElement("plus "+condition, x-gapX/2-15, y+201.5, "plus");
-                    addElement(condition, x, y+185.5, "condition", getConditionArguments(ast).toString());
-                    addEdge(uniqueNodeIdList[uniqueNodeIdList.length-2], "plus "+condition, "#D6D5E6");
+                if(condition !== undefined && uniqueNodeIdList.indexOf(condition) === -1){
+                    addElement("plus " + condition, x - gapX/2 - 15, y + 201.5, "plus");
+                    addElement(condition, x, y + 185.5, "condition", getConditionArguments(ast).toString());
+                    addEdge(uniqueNodeIdList[uniqueNodeIdList.length - 2], "plus "+condition, "#D6D5E6");
                     addEdge("plus "+condition, condition, "#D6D5E6");
                     addEdge(condition, "done", "red", "Else","sourceTop",
                         "targetTop", true);
-                    x+=gapX+conditionWidth;
+                    x += gapX + conditionWidth;
                 }
 
                 for (const successStep of successPath){
-                    if (uniqueNodeIdList.indexOf(successStep)===-1){
-                        addElement("plus "+successStep, x-gapX/2-15, y+201.5, "plus");
+                    if (uniqueNodeIdList.indexOf(successStep) === -1){
+                        addElement("plus " + successStep, x - gapX/2 - 15, y + 201.5, "plus");
                         addElement(successStep, x, y);
                         addEdge("plus "+successStep, successStep, "#D6D5E6");
                         x+=stepWidth + gapX;
@@ -407,23 +408,22 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
                         addEdge(condition, "plus "+successStep, "#D6D5E6");
                     }
                     else{
-                        addEdge(uniqueNodeIdList[uniqueNodeIdList.length-3], "plus " + successStep,"#D6D5E6");
+                        addEdge(uniqueNodeIdList[uniqueNodeIdList.length - 3], "plus " + successStep,"#D6D5E6");
                     }
                 }
 
                 for (const successStep of remainSuccess){
-                    if (uniqueNodeIdList.indexOf(successStep)===-1){
-                        if (remainSuccess.indexOf(successStep)===0){
-                            addEdge(uniqueNodeIdList[uniqueNodeIdList.length-1], "plus "+successStep, "#D6D5E6");
-                        }
-                        else{
-                            addEdge(remainSuccess[remainSuccess.indexOf(successStep)-1], "plus "+successStep,
+                    if (uniqueNodeIdList.indexOf(successStep) === -1) {
+                        if (remainSuccess.indexOf(successStep) === 0) {
+                            addEdge(uniqueNodeIdList[uniqueNodeIdList.length - 1], "plus "+successStep, "#D6D5E6");
+                        } else {
+                            addEdge(remainSuccess[remainSuccess.indexOf(successStep) - 1], "plus "+successStep,
                                 "#D6D5E6");
                         }
-                        addElement("plus "+successStep, x-gapX/2-15, y+201.5, "plus");
+                        addElement("plus " + successStep, x - gapX/2 - 15, y + 201.5, "plus");
                         addElement(successStep, x, y);
-                        addEdge("plus "+successStep, successStep, "#D6D5E6");
-                        x+=stepWidth + gapX;
+                        addEdge("plus " + successStep, successStep, "#D6D5E6");
+                        x += stepWidth + gapX;
                     }
                 }
             }
@@ -437,14 +437,14 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
             }
         }
 
-        y+=186.5;
-        if(stepsToSuccess.length!==0) {
+        y += 186.5;
+        if(stepsToSuccess.length !== 0) {
             addElement("done", x, y - 15, "done");
         }
         for (const step of stepsToSuccess){
-            addElement("plus"+step+" final", x-gapX/2-15, y+15, "plus");
-            addEdge("plus"+step+" final", "done", "#D6D5E6");
-            addEdge(step, "plus"+step+" final", "#D6D5E6");
+            addElement("plus" + step + " final", x - gapX / 2 - 15, y + 15, "plus");
+            addEdge("plus" + step + " final", "done", "#D6D5E6");
+            addEdge(step, "plus" + step + " final", "#D6D5E6");
         }
 
     }, [ast, steps]);
