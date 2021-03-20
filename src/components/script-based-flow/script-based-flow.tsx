@@ -55,8 +55,8 @@ export const ScriptBasedFlow: FunctionComponent = (): ReactElement => {
     );
 
     const handleCodeChanges = (value: string|undefined) : void => {
-        if (value===undefined){
-            value="";
+        if (value === undefined) {
+            value = "";
         }
         setCode(value);
         setAstToStore(parseToAst(value));
