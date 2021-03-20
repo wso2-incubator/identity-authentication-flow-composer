@@ -29,7 +29,7 @@ import {
     setAuthenticationStep,
     setSubjectIdentifier
 } from "../../../store/actions/actions";
-import { ParseToAst } from "../../mapper";
+import { ParseToAst } from "../../../utils";
 
 /**
  * Template component Prop types.

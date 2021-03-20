@@ -41,7 +41,6 @@ import {
     setAuthenticationStep,
     setIntermediateAuthenticationStep
 } from "../../store/actions/actions";
-import { ComponentSelector, ConditionsList, StepConfigurationModal } from "../core";
 import {
     AddCondition,
     AddConditionBeforeStep, AddStepToCondition,
@@ -52,7 +51,8 @@ import {
     GetAllStepsFromAst, GetConditionArguments,
     GetHarmfulOperations,
     HasLoginRequest
-} from "../mapper";
+} from "../../utils";
+import { ComponentSelector, ConditionsList, StepConfigurationModal } from "../core";
 
 /**
  * Visual editor component Prop types.

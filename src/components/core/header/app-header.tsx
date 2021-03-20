@@ -23,7 +23,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";
 import { AuthenticationSequenceInterface, AuthenticationSequenceType, AuthenticationStep } from "../../../models";
-import { GenerateCodeFromAst } from "../../mapper";
+import { GenerateCodeFromAst } from "../../../utils";
 import { AlertModal } from "../modals";
 
 

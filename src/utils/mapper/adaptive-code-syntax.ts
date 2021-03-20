@@ -50,4 +50,3 @@ export const getConditionSyntax = (condition:string) : string => {
     code+="};";
     return code;
 };
-

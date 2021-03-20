@@ -23,7 +23,7 @@ import { Dispatch } from "redux";
 import { ScriptEditor } from "./script-editor";
 import { AppState } from "../../store";
 import { setAstFromScriptEditor } from "../../store/actions/actions";
-import { GenerateCodeFromAst, ParseToAst } from "../mapper";
+import { GenerateCodeFromAst, ParseToAst } from "../../utils";
 
 /**
  * Script based flow component.
