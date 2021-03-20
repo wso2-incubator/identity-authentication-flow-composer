@@ -47,7 +47,7 @@ export interface AlertModalProps {
     /**
      * Callback function for the primary button of the alert modal
      */
-    onButtonClick: ()=>void
+    onButtonClick: () => void
 }
 
 /**
@@ -91,7 +91,7 @@ export const AlertModal: FunctionComponent<AlertModalProps> = (
                     <div>
                         <button
                             className="primary-button"
-                            onClick={ ()=>onButtonClick() }
+                            onClick={ () => onButtonClick() }
                         >
                             { primaryButtonLabel }
                         </button>
