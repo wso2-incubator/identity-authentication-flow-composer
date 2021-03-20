@@ -37,7 +37,7 @@ export interface StepConfigurationModalProps {
     /**
      * Callback function for done button
      */
-    onDone: (checkedList: any)=>void,
+    onDone: (checkedList: any) => void,
     /**
      * Authentication step id
      */
@@ -49,7 +49,7 @@ export interface StepConfigurationModalProps {
     /**
      * Callback function for cancel selection
      */
-    onCancel: ()=>void
+    onCancel: () => void
 }
 
 /**
@@ -74,7 +74,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     let factors: any[] = [];
     let factorsOfFirstStep: any[] = [];
     let prefix : any = null;
-    if (step===null){
+    if (step === null) {
         prefix = "New";
     }
 
@@ -118,27 +118,27 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
         [dispatch]
     );
 
-    const currentStep = steps.filter((element:any)=>element.stepId===step);
-    if (currentStep.length>0){
+    const currentStep = steps.filter((element:any) => element.stepId === step);
+    if (currentStep.length > 0) {
         factors = currentStep[0].authenticators;
     }
 
-    const firstStep = steps.filter((element:any)=>element.stepId===1);
-    if (firstStep.length>0){
+    const firstStep = steps.filter((element:any) => element.stepId === 1);
+    if (firstStep.length > 0) {
         factorsOfFirstStep = firstStep[0].authenticators;
     }
 
     const [checkedList, setCheckedList] : [any, any] = useState(factors);
-    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom===step);
+    const [useSubjectFromThisStep, setUseSubjectFromThisStep] = useState<boolean|undefined>(useSubjectFrom === step);
     const [useAttributesFromThisStep, setUseAttributesFromThisStep] =
-        useState<boolean|undefined>(useAttributesFrom===step);
+        useState<boolean|undefined>(useAttributesFrom === step);
 
-    const onChange = (name?:string) => {
-        if(checkedList.indexOf(name)===-1){
-            setCheckedList((checkedList:any[])=>[...checkedList, name]);
+    const onChange = (name?: string) => {
+        if(checkedList.indexOf(name) === -1){
+            setCheckedList((checkedList:any[]) => [...checkedList, name]);
         }else{
             setCheckedList(
-                (checkedList:any[])=>[
+                (checkedList:any[]) => [
                     ...checkedList.slice(0, checkedList.indexOf(name)),
                     ...checkedList.slice(checkedList.indexOf(name) + 1)
                 ]
@@ -147,12 +147,12 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
     };
 
     const onClick = () => {
-        if (useSubjectFrom===step && !useSubjectFromThisStep){
+        if (useSubjectFrom === step && !useSubjectFromThisStep){
             saveSubjectIdentifierToStore(1);
-        }else if (!(useSubjectFrom===step) && useSubjectFromThisStep){
-            if (step===null && nextStep===null) {
-                saveSubjectIdentifierToStore(steps.length+1);
-            }else if (step===null) {
+        }else if (!(useSubjectFrom === step) && useSubjectFromThisStep){
+            if (step === null && nextStep === null) {
+                saveSubjectIdentifierToStore(steps.length + 1);
+            }else if (step === null) {
                 if (nextStep != null) {
                     saveSubjectIdentifierToStore(nextStep);
                 }
@@ -160,16 +160,16 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                 saveSubjectIdentifierToStore(step);
             }
         }
-        if (useAttributesFrom===step && !useAttributesFromThisStep){
+        if (useAttributesFrom === step && !useAttributesFromThisStep){
             saveAttributesIdentifierToStore(1);
-        }else if(!(useAttributesFrom===step) && useAttributesFromThisStep){
-            if (step===null && nextStep===null){
-                saveAttributesIdentifierToStore(steps.length+1);
-            }else if (step===null){
+        } else if (!(useAttributesFrom === step) && useAttributesFromThisStep){
+            if (step === null && nextStep === null){
+                saveAttributesIdentifierToStore(steps.length + 1);
+            } else if (step === null){
                 if (nextStep != null) {
                     saveAttributesIdentifierToStore(nextStep);
                 }
-            }else {
+            } else {
                 saveAttributesIdentifierToStore(step);
             }
         }
@@ -194,7 +194,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useSubjectFromThisStep }
-                        readOnly = { (step===1 && useSubjectFromThisStep) }
+                        readOnly = { (step === 1 && useSubjectFromThisStep) }
                         onChange={ (event, props) => setUseSubjectFromThisStep(props.checked) }
                         label="Use subject identifier from this step"
                     />
@@ -204,7 +204,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <Checkbox
                         className="checkbox"
                         checked={ useAttributesFromThisStep }
-                        readOnly = { (step===1 && useSubjectFromThisStep) }
+                        readOnly = { (step === 1 && useSubjectFromThisStep) }
                         onChange={ (event, props) => setUseAttributesFromThisStep(props.checked) }
                         label = "Use attributes from this step"
                     />
@@ -216,15 +216,15 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                 <div className="authenticators-section-container">
                     { authFactors.map((factor: any) => {
                         let disabled = false;
-                        if(factor.displayName==="fido" || factor.displayName==="totp"){
-                            if (step===1 || nextStep==1) {
+                        if (factor.displayName === "fido" || factor.displayName === "totp") {
+                            if (step === 1 || nextStep == 1) {
                                 disabled = true;
-                            }else if(factorsOfFirstStep.indexOf("basic")===-1 &&
-                                factorsOfFirstStep.indexOf("identifier-first")===-1){
+                            }else if(factorsOfFirstStep.indexOf("basic") === -1 &&
+                                factorsOfFirstStep.indexOf("identifier-first") === -1){
                                 disabled = true;
                             }
                         }
-                        const checked = checkedList.indexOf(factor.displayName)!==-1 && !disabled;
+                        const checked = checkedList.indexOf(factor.displayName) !== -1 && !disabled;
                         return(
                             <Authenticator
                                 key={ factor.id }
@@ -240,7 +240,7 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                 <div className="authenticators-section-header">Social Login</div>
                 <div className="authenticators-section-container">
                     { idpList.map((factor: any) => {
-                        const checked = checkedList.indexOf(factor.name)!==-1;
+                        const checked = checkedList.indexOf(factor.name) !== -1;
                         return(
                             <Authenticator
                                 key={ factor.id }
@@ -262,14 +262,14 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
                     <div>
                         <button
                             className="primary-button float-right"
-                            onClick={ ()=>onClick() }
-                            disabled={ checkedList.length===0 }
+                            onClick={ () => onClick() }
+                            disabled={ checkedList.length === 0 }
                         >
                             Done
                         </button>
                         <button
                             className="secondary-button float-left"
-                            onClick={ ()=>onCancel() }
+                            onClick={ () => onCancel() }
                         >
                             Cancel
                         </button>
