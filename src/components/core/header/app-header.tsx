@@ -58,14 +58,14 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
             });
     }, []);
 
-    const getInfo = (option:any) : any => {
-        return authFactors.filter((factor:any)=> {
+    const getInfo = (option: any) : any => {
+        return authFactors.filter((factor: any)=> {
             return factor.displayName ? factor.displayName === option : factor.name === option;
         });
     };
 
     const [ast, steps, subjectStepId, attributeStepId] : [File, AuthenticationStep[], number, number] = useSelector(
-        (state:any) => {
+        (state: any) => {
             return [state.astReducer.ast, state.stepReducer.steps, state.stepReducer.subjectIdentifierStep,
                 state.stepReducer.attributesIdentifierStep];
         },
@@ -86,7 +86,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                         return {
                             authenticator: optionInfo.type ? optionInfo.name :
                                 optionInfo.federatedAuthenticators.authenticators.find(
-                                    (authenticator:any) =>
+                                    (authenticator: any) =>
                                         authenticator.authenticatorId===optionInfo.federatedAuthenticators.
                                             defaultAuthenticatorId
                                 ).name,
