@@ -37,7 +37,7 @@ export interface ActionCardProps {
     /**
      * Callback function for on click of the component
      */
-    onClick: ()=>void
+    onClick: () => void
 }
 
 /**
