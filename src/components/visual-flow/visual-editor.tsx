@@ -22,7 +22,7 @@ import ReactFlow, { Background, BackgroundVariant, Controls, FlowElement } from 
 import { AiFillWarning } from "react-icons/all";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import { edgeTypes } from "./edges";
+import { edgeTypes } from "./edges/edge-types";
 import {
     AuthenticationOptionElement,
     AuthenticationStepElement,
@@ -34,7 +34,7 @@ import {
     PlusElement,
     StartElement
 } from "./flow-elements";
-import { nodeTypes } from "./nodes";
+import { nodeTypes } from "./nodes/node-types";
 import { AuthenticationStep } from "../../models";
 import {
     setAstFromVisualEditor,
