@@ -16,6 +16,13 @@
  * under the License.
  */
 
-export * from "./script-based-flow";
-export * from "./core";
-export * from "./visual-flow";
+import { parse } from "@babel/parser";
+import { File } from "@babel/types";
+
+export const parseToAst = (value:string) : File => {
+    try {
+        return parse(value);
+    }catch (e) {
+        return parse("");
+    }
+};

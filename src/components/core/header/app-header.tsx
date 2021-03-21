@@ -23,7 +23,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";
 import { AuthenticationSequenceInterface, AuthenticationSequenceType, AuthenticationStep } from "../../../models";
-import { GenerateCodeFromAst } from "../../mapper";
+import { generateCodeFromAst } from "../../../utils";
 import { AlertModal } from "../modals";
 
 
@@ -58,14 +58,14 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
             });
     }, []);
 
-    const getInfo = (option:any) : any => {
-        return authFactors.filter((factor:any)=> {
+    const getInfo = (option: any) : any => {
+        return authFactors.filter((factor: any)=> {
             return factor.displayName ? factor.displayName === option : factor.name === option;
         });
     };
 
     const [ast, steps, subjectStepId, attributeStepId] : [File, AuthenticationStep[], number, number] = useSelector(
-        (state:any) => {
+        (state: any) => {
             return [state.astReducer.ast, state.stepReducer.steps, state.stepReducer.subjectIdentifierStep,
                 state.stepReducer.attributesIdentifierStep];
         },
@@ -86,7 +86,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                         return {
                             authenticator: optionInfo.type ? optionInfo.name :
                                 optionInfo.federatedAuthenticators.authenticators.find(
-                                    (authenticator:any) =>
+                                    (authenticator: any) =>
                                         authenticator.authenticatorId===optionInfo.federatedAuthenticators.
                                             defaultAuthenticatorId
                                 ).name,
@@ -98,7 +98,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
 
             const authenticationSequence: AuthenticationSequenceInterface = {
                 attributeStepId: attributeStepId,
-                script: GenerateCodeFromAst(ast),
+                script: generateCodeFromAst(ast),
                 steps: stepsToRequest,
                 subjectStepId: subjectStepId,
                 type: AuthenticationSequenceType.USER_DEFINED

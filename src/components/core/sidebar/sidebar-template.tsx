@@ -29,7 +29,7 @@ import {
     setAuthenticationStep,
     setSubjectIdentifier
 } from "../../../store/actions/actions";
-import { ParseToAst } from "../../mapper";
+import { parseToAst } from "../../../utils";
 
 /**
  * Template component Prop types.
@@ -83,12 +83,12 @@ export const Template: FunctionComponent<TemplateProps> = (props: TemplateProps)
         saveSubjectIdentifierToStore(1);
         saveAttributesIdentifierToStore(1);
         if (template) {
-            saveAstToStore(ParseToAst(template.code.join("\n")));
+            saveAstToStore(parseToAst(template.code.join("\n")));
             const authenticatorsArray = Object.values(template?.defaultAuthenticators);
             let stepNo: number = 1;
             for (const step of authenticatorsArray) {
                 saveAuthenticationStepToStore(stepNo, step.local.concat(step.federated));
-                stepNo+=1;
+                stepNo += 1;
             }
         }
     };
@@ -96,14 +96,14 @@ export const Template: FunctionComponent<TemplateProps> = (props: TemplateProps)
     return (
         <div className="template-container"
             onClick={
-                ()=>updateWithTemplate(templateObject.name)
+                () => updateWithTemplate(templateObject.name)
             }
         >
-            { templateObject.name==="Role-Based" ?
+            { templateObject.name === "Role-Based" ?
                 <HiUsers/>
-                : templateObject.name==="User Store-Based" ?
+                : templateObject.name === "User Store-Based" ?
                     <FiDatabase/>
-                    : templateObject.name==="Basic Login" ? <FiLogIn/>: <BsGearFill/> }
+                    : templateObject.name === "Basic Login" ? <FiLogIn/>: <BsGearFill/> }
             <div className="template-text">{ templateObject.name }</div>
         </div>
     );

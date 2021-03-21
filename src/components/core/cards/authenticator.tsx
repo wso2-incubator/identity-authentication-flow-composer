@@ -39,7 +39,7 @@ export interface AuthenticatorProps {
     /**
      * Callback function on change the authentication factor selection status
      */
-    onChange: (factorName: string)=>void
+    onChange: (factorName: string) => void
     /**
      * Whether the authentication factor is disabled
      */

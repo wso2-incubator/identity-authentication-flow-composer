@@ -33,15 +33,15 @@ export interface ComponentSelectorProps {
     /**
      * Callback function for cancel button
      */
-    onCancel: ()=>void,
+    onCancel: () => void,
     /**
      * Callback function for step selection
      */
-    onStepSelection: ()=>void,
+    onStepSelection: () => void,
     /**
      * Callback function for condition selection
      */
-    onConditionSelection: ()=>void
+    onConditionSelection: () => void
 }
 
 /**
@@ -76,18 +76,18 @@ export const ComponentSelector: FunctionComponent<ComponentSelectorProps> = (
                         icon={ <StepIcon/> }
                         heading="Authentication Step"
                         subHeading="Add an authentication step by selecting authenticators"
-                        onClick={ ()=>onStepSelection() }
+                        onClick={ () => onStepSelection() }
                     />
                     <ActionCard
                         icon={ <ConditionIcon/> }
                         heading="Condition"
                         subHeading="Add a condition by selecting predefined conditions"
-                        onClick={ ()=>onConditionSelection() }
+                        onClick={ () => onConditionSelection() }
                     />
                 </div>
             </Modal.Content>
             <Modal.Actions>
-                <button className="secondary-button float-right" onClick={ ()=>onCancel() }>Cancel</button>
+                <button className="secondary-button float-right" onClick={ () => onCancel() }>Cancel</button>
             </Modal.Actions>
         </Modal>
     );

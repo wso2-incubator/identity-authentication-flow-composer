@@ -37,11 +37,11 @@ export interface ConditionsListProps {
     /**
      * Callback function for done button
      */
-    onDone: (checkedCondition:string, params?:any)=>void,
+    onDone: (checkedCondition: string, params?: any) => void,
     /**
      * Callback function for cancel selection
      */
-    onCancel: ()=>void
+    onCancel: () => void
 }
 
 /**
@@ -84,12 +84,12 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                             name="radioGroup"
                             value="hasRole"
                             checked={ checkedCondition === "hasRole" }
-                            onChange={ ()=>setCheckedCondition("hasRole") }
+                            onChange={ () => setCheckedCondition("hasRole") }
                         />
                         <p className="condition-description">
                             Checking if the user is assigned to one of the given roles
                         </p>
-                        { checkedCondition==="hasRole" &&
+                        { checkedCondition === "hasRole" &&
                             <Form.Dropdown
                                 className="condition-input"
                                 placeholder="Select Roles"
@@ -108,13 +108,13 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                                 name="radioGroup"
                                 value="isExceedInvalidAttempts"
                                 checked={ checkedCondition === "isExceedInvalidAttempts" }
-                                onChange={ ()=>setCheckedCondition("isExceedInvalidAttempts") }
+                                onChange={ () => setCheckedCondition("isExceedInvalidAttempts") }
                             />
-                            { checkedCondition==="isExceedInvalidAttempts" &&
+                            { checkedCondition === "isExceedInvalidAttempts" &&
                                 <FormInput
                                     className="text-input-login-attempts-no"
                                     value={ minLoginAttempts }
-                                    onChange={ (event)=>setMinLoginAttempts(event.target.value) }
+                                    onChange={ (event) => setMinLoginAttempts(event.target.value) }
                                 />
                             }
                         </div>
@@ -128,12 +128,12 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                             name="radioGroup"
                             value="custom"
                             checked={ checkedCondition === "custom" }
-                            onChange={ ()=>setCheckedCondition("custom") }
+                            onChange={ () => setCheckedCondition("custom") }
                         />
                         <p className="condition-description">
                             You can define a custom condition using this
                         </p>
-                        { checkedCondition==="custom" &&
+                        { checkedCondition === "custom" &&
                             <FormInput
                                 className="condition-input"
                                 placeholder="Condition name"
@@ -149,17 +149,17 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
             <Modal.Actions>
                 <button
                     className="primary-button float-right"
-                    disabled={ (checkedCondition==="custom" && customConditionName==="") ||
-                        (checkedCondition==="hasRole" && selectedRoles.length===0)
+                    disabled={ (checkedCondition === "custom" && customConditionName === "") ||
+                        (checkedCondition === "hasRole" && selectedRoles.length === 0)
                     }
                     onClick={ ()=>{
-                        if(checkedCondition==="custom"){
+                        if (checkedCondition === "custom") {
                             onDone(customConditionName);
-                        }else if(checkedCondition==="hasRole"){
+                        } else if (checkedCondition === "hasRole") {
                             onDone(checkedCondition, selectedRoles);
-                        }else if(checkedCondition==="isExceedInvalidAttempts") {
+                        } else if (checkedCondition === "isExceedInvalidAttempts") {
                             onDone(checkedCondition, minLoginAttempts);
-                        }else {
+                        } else {
                             onDone(checkedCondition);
                         }
                     } }
@@ -168,7 +168,7 @@ export const ConditionsList: FunctionComponent<ConditionsListProps> = (
                 </button>
                 <button
                     className="secondary-button float-left"
-                    onClick={ ()=>onCancel() }
+                    onClick={ () => onCancel() }
                 >
                         Cancel
                 </button>

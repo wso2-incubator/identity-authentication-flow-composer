@@ -16,13 +16,13 @@
  * under the License.
  */
 
-import { parse } from "@babel/parser";
+import generate from "@babel/generator";
 import { File } from "@babel/types";
 
-export const ParseToAst = (value:string) : File => {
-    try {
-        return parse(value);
-    }catch (e) {
-        return parse("");
+export const generateCodeFromAst = (ast : File): string => {
+    try{
+        return generate(ast).code?.replaceAll("function (","function(");
+    } catch(error) {
+        return "";
     }
 };

@@ -28,7 +28,7 @@ import * as syntax from "./adaptive-code-syntax";
  * 
  * @return {boolean}
  */
-export const HasLoginRequest = (ast:File) : boolean => {
+export const hasLoginRequest = (ast:File) : boolean => {
     let request: boolean = false;
     try{
         traverse(ast, {
@@ -53,7 +53,7 @@ export const HasLoginRequest = (ast:File) : boolean => {
  *
  * @return {number[]}
  */
-export const GetHarmfulOperations = (ast:File) : number[] => {
+export const getHarmfulOperations = (ast:File) : number[] => {
     const harmfulLocationArray: number[] = [];
     try{
         traverse(ast, {
@@ -81,14 +81,14 @@ export const GetHarmfulOperations = (ast:File) : number[] => {
  * 
  * @return {any}
  */
-export const GetStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
+export const getStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
     let successSteps: Record<string, unknown>|undefined = undefined;
     try {
         traverse(ast, {
             ObjectMember(path: any) {
                 if (path.node.key.name === syntax.onSuccess) {
-                    const steps = GetCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state);
-                    const condition: any = GetCondition(path.node, path.scope, path.parentPath, path.state);
+                    const steps = getCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state);
+                    const condition: any = getCondition(path.node, path.scope, path.parentPath, path.state);
                     const remaining = steps.filter((step: any) => condition.onSuccess.indexOf(step) === -1);
                     successSteps = {
                         condition: condition.condition,
@@ -115,13 +115,13 @@ export const GetStepsInSuccessPath = (ast : File, scope:Scope, parentPath:NodePa
  *
  * @return {number|undefined}
  */
-export const GetStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePath, state:Node)
+export const getStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePath, state:Node)
     : number|undefined => {
     const failSteps: number[] = [];
     traverse(ast, {
         ObjectMember(path: any){
             if (path.node.key.name===syntax.onFail){
-                failSteps.push(GetCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state));
+                failSteps.push(getCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state));
             }
             path.skip();
         }
@@ -139,7 +139,7 @@ export const GetStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePa
  *
  * @return {any}
  */
-export const GetCondition = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any=> {
+export const getCondition = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any=> {
     let condition: string|undefined = undefined;
     let success: any[] = [];
     try {
@@ -157,7 +157,7 @@ export const GetCondition = (ast : File, scope:Scope, parentPath:NodePath, state
                 } else {
                     condition = generate(path.node.test).code;
                 }
-                success = GetCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state);
+                success = getCallExpressionsInPath(path.node, path.scope, path.parentPath, path.state);
             }
         }, scope, state, parentPath);
     } catch (error) {
@@ -176,7 +176,7 @@ export const GetCondition = (ast : File, scope:Scope, parentPath:NodePath, state
  *
  * @return {any[]} arguments as an array
  */
-export const GetConditionArguments = (ast : File): any => {
+export const getConditionArguments = (ast : File): any => {
     let params: any[] = [];
     traverse(ast, {
         VariableDeclarator(path: any){
@@ -200,7 +200,7 @@ export const GetConditionArguments = (ast : File): any => {
  *
  * @return {number[]}
  */
-export const GetCallExpressionsInPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
+export const getCallExpressionsInPath = (ast : File, scope:Scope, parentPath:NodePath, state:Node): any => {
     const steps: number[] = [];
     traverse(ast, {
         CallExpression(path: any){
@@ -220,14 +220,14 @@ export const GetCallExpressionsInPath = (ast : File, scope:Scope, parentPath:Nod
  *
  * @return {any[]}
  */
-export const GetAllStepsFromAst = (ast : File) : any[] => {
+export const getAllStepsFromAst = (ast : File) : any[] => {
     const stepsArray: any[] = [];
     try{
         traverse(ast, {
             CallExpression(path: any){
                 if (path.node.callee.name===syntax.stepExecutor){
-                    const success = GetStepsInSuccessPath(path.node, path.scope, path.parentPath, path.state);
-                    const fail = GetStepsInFailurePath(path.node, path.scope, path.parentPath, path.state);
+                    const success = getStepsInSuccessPath(path.node, path.scope, path.parentPath, path.state);
+                    const fail = getStepsInFailurePath(path.node, path.scope, path.parentPath, path.state);
                     stepsArray.push({
                         onFail: fail,
                         onSuccess: success,
@@ -251,7 +251,7 @@ export const GetAllStepsFromAst = (ast : File) : any[] => {
  *
  * @return {any}
  */
-export const GetPathOfStep = (ast:File, step:string) : any => {
+export const getPathOfStep = (ast:File, step:string) : any => {
     let stepPath : any = {};
     traverse(ast, {
         CallExpression(path: any){
@@ -271,7 +271,7 @@ export const GetPathOfStep = (ast:File, step:string) : any => {
  *
  * @return {any[]}
  */
-export const GetConditionPathWithLastStep = (ast:File, condition:string) : any[] => {
+export const getConditionPathWithLastStep = (ast:File, condition:string) : any[] => {
     let stepPath : any = {};
     let lastStep : any = 0;
     traverse(ast, {
@@ -307,7 +307,7 @@ export const GetConditionPathWithLastStep = (ast:File, condition:string) : any[]
  * 
  * @return {any}
  */
-export const GetSuccessFailurePath =
+export const getSuccessFailurePath =
     (ast : File, scope:Scope, parentPath:NodePath, state:Node, type:string) : any => {
         let successPath : any = null;
         traverse(ast, {

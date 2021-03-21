@@ -104,10 +104,10 @@ export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdg
     let middleOffset: number = data.middleOffset;
     let borderRadius: number = 0;
    
-    if (offset===undefined) offset = 0;
-    if (targetOffsetX===undefined) targetOffsetX = 0;
-    if (targetOffsetY===undefined) targetOffsetY = 0;
-    if (middleOffset===undefined) {
+    if (offset === undefined) offset = 0;
+    if (targetOffsetX === undefined) targetOffsetX = 0;
+    if (targetOffsetY === undefined) targetOffsetY = 0;
+    if (middleOffset === undefined) {
         middleOffset = 0;
         borderRadius = 20;
     }
@@ -115,14 +115,14 @@ export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdg
     const center: [number, number, number, number] = getEdgeCenter({ sourceX, sourceY, targetX, targetY });
     const edgePath: string = getSmoothStepPath({
         borderRadius: borderRadius,
-        centerX:center[0]-Math.abs(offset),
-        centerY:center[1]-middleOffset,
+        centerX: center[0] - Math.abs(offset),
+        centerY: center[1] - middleOffset,
         sourcePosition,
         sourceX,
-        sourceY:sourceY+offset,
+        sourceY: sourceY + offset,
         targetPosition,
-        targetX:targetX+targetOffsetX,
-        targetY:targetY+targetOffsetY
+        targetX: targetX+targetOffsetX,
+        targetY: targetY+targetOffsetY
     });
     const markerEnd: string = getMarkerEnd(arrowHeadType, markerEndId);
 
@@ -130,19 +130,19 @@ export const CustomEdge : FunctionComponent<CustomEdgeProps> = (props: CustomEdg
         <g>
             <path id={ id } className="react-flow__edge-path" d={ edgePath } markerEnd={ markerEnd } />
             <EdgeText
-                x={ center[0]-center[2] }
-                y={ center[1]-middleOffset/2 }
+                x={ center[0] - center[2] }
+                y={ center[1] - middleOffset/2 }
                 label={ data.text }
                 labelBgStyle={
                     {
-                        fill:"#313234"
+                        fill: "#313234"
                     }
                 }
                 labelStyle={
                     {
-                        fill:"#fff",
+                        fill: "#fff",
                         fontSize: 14,
-                        letterSpacing:"1px"
+                        letterSpacing: "1px"
                     }
                 }
             />

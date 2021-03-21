@@ -23,7 +23,7 @@ import { Dispatch } from "redux";
 import { ScriptEditor } from "./script-editor";
 import { AppState } from "../../store";
 import { setAstFromScriptEditor } from "../../store/actions/actions";
-import { GenerateCodeFromAst, ParseToAst } from "../mapper";
+import { generateCodeFromAst, parseToAst } from "../../utils";
 
 /**
  * Script based flow component.
@@ -41,11 +41,11 @@ export const ScriptBasedFlow: FunctionComponent = (): ReactElement => {
         shallowEqual
     );
 
-    const[code, setCode] = useState(GenerateCodeFromAst(ast));
+    const[code, setCode] = useState(generateCodeFromAst(ast));
 
     useEffect(()=>{
         if (changedFromVisualEditor) {
-            setCode(GenerateCodeFromAst(ast));
+            setCode(generateCodeFromAst(ast));
         }
     }, [ast]);
 
@@ -55,11 +55,11 @@ export const ScriptBasedFlow: FunctionComponent = (): ReactElement => {
     );
 
     const handleCodeChanges = (value: string|undefined) : void => {
-        if (value===undefined){
-            value="";
+        if (value === undefined) {
+            value = "";
         }
         setCode(value);
-        setAstToStore(ParseToAst(value));
+        setAstToStore(parseToAst(value));
     };
 
     return (
