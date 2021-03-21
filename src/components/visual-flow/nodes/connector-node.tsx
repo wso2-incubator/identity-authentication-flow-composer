@@ -22,6 +22,9 @@ import { BiCircle } from "react-icons/all";
 
 /**
  * Connector Node component.
+ * This is a custom node supported by react flow renderer library.
+ * See {@link https://reactflow.dev/docs/api/node-types/} for its documentation
+ * and {@link https://reactflow.dev/examples/custom-node/} for an example
  *
  * @return {React.ReactElement}
  */
