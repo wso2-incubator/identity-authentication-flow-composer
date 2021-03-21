@@ -25,7 +25,7 @@ import { File } from "@babel/types";
  * {@link https://babeljs.io/docs/en/babel-parser}
  *
  * @example
- * // return {
+ * // returns {
     "type": "File",
     "start": 0,
     "end": 9,
