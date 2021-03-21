@@ -19,6 +19,125 @@
 import generate from "@babel/generator";
 import { File } from "@babel/types";
 
+/**
+ * Generate code from and AST(Abstract Syntax Tree).
+ *
+ * {@link https://babeljs.io/docs/en/babel-generator}
+ *
+ * @example
+ * // returns "var a = 2"
+ * generateCodeFromAst({
+    "type": "File",
+    "start": 0,
+    "end": 9,
+    "loc": {
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 1,
+            "column": 9
+        }
+    },
+    "errors": [],
+    "program": {
+        "type": "Program",
+        "start": 0,
+        "end": 9,
+        "loc": {
+            "start": {
+                "line": 1,
+                "column": 0
+            },
+            "end": {
+                "line": 1,
+                "column": 9
+            }
+        },
+        "sourceType": "script",
+        "interpreter": null,
+        "body": [
+            {
+                "type": "VariableDeclaration",
+                "start": 0,
+                "end": 9,
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "column": 9
+                    }
+                },
+                "declarations": [
+                    {
+                        "type": "VariableDeclarator",
+                        "start": 4,
+                        "end": 9,
+                        "loc": {
+                            "start": {
+                                "line": 1,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 1,
+                                "column": 9
+                            }
+                        },
+                        "id": {
+                            "type": "Identifier",
+                            "start": 4,
+                            "end": 5,
+                            "loc": {
+                                "start": {
+                                    "line": 1,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 1,
+                                    "column": 5
+                                },
+                                "identifierName": "a"
+                            },
+                            "name": "a"
+                        },
+                        "init": {
+                            "type": "NumericLiteral",
+                            "start": 8,
+                            "end": 9,
+                            "loc": {
+                                "start": {
+                                    "line": 1,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 1,
+                                    "column": 9
+                                }
+                            },
+                            "extra": {
+                                "rawValue": 2,
+                                "raw": "2"
+                            },
+                            "value": 2
+                        }
+                    }
+                ],
+                "kind": "var"
+            }
+        ],
+        "directives": []
+    },
+    "comments": []
+    });
+ *
+ * @param {File} ast - Abstract Syntax Tree.
+ *
+ * @return {string} Returns the javascript code.
+ */
 export const generateCodeFromAst = (ast : File): string => {
     try{
         return generate(ast).code?.replaceAll("function (","function(");
