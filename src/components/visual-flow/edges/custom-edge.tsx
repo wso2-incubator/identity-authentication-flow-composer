@@ -78,6 +78,9 @@ export interface CustomEdgeProps {
 
 /**
  * Custom Edge component.
+ * This is a custom edge supported by react flow renderer library.
+ * See {@link https://reactflow.dev/docs/api/edge-types/} for its documentation
+ * and {@link https://reactflow.dev/examples/edges/} for an example for a custom edge.
  *
  * @param {CustomEdgeProps} props - Props injected to the component.
  *
