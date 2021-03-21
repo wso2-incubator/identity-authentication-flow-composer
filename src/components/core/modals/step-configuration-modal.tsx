@@ -91,7 +91,9 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             });
         getAuthenticators("idp")
             .then((response) => {
-                setIdpList(response.data.identityProviders);
+                if (response.data.identityProviders) {
+                    setIdpList(response.data.identityProviders);
+                }
             })
             .catch((error) => {
                 throw new Error(error);
