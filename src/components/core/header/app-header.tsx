@@ -51,7 +51,9 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
             });
         getAuthenticators("idp")
             .then((response) => {
-                setAuthFactors((elements: any)=>[...elements, ...response.data.identityProviders]);
+                if (response.data.identityProviders) {
+                    setAuthFactors((elements: any) => [...elements, ...response.data.identityProviders]);
+                }
             })
             .catch((error) => {
                 throw new Error(error);
