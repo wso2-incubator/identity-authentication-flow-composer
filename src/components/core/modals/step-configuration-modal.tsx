@@ -93,6 +93,8 @@ export const StepConfigurationModal: React.FC<StepConfigurationModalProps> = (
             .then((response) => {
                 if (response.data.identityProviders) {
                     setIdpList(response.data.identityProviders);
+                }else{
+                    setIdpList([]);
                 }
             })
             .catch((error) => {
