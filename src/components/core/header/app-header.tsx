@@ -37,6 +37,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
     const [authFactors, setAuthFactors] = useState<any>([]);
     const [visibleSuccessAlertModal, setVisibleSuccessAlertModal] = useState<boolean>(false);
     const [visibleErrorAlertModal, setVisibleErrorAlertModal] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("Something went wrong.");
     const searchUrlPrams = new URLSearchParams(window.location.search);
     const appId: string|null = searchUrlPrams.get("appId");
     const callbackUrl: string|null = searchUrlPrams.get("callbackUrl");
@@ -51,7 +52,11 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
             });
         getAuthenticators("idp")
             .then((response) => {
-                setAuthFactors((elements: any)=>[...elements, ...response.data.identityProviders]);
+                if (response.data.identityProviders) {
+                    setAuthFactors((elements: any) => [...elements, ...response.data.identityProviders]);
+                } else {
+                    setAuthFactors((elements: any) => [...elements]);
+                }
             })
             .catch((error) => {
                 throw new Error(error);
@@ -110,6 +115,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                 setVisibleErrorAlertModal(true);
             });
         } else {
+            setErrorMessage("AppId and the Callback URL is not provided.");
             setVisibleErrorAlertModal(true);
         }
 
@@ -148,7 +154,7 @@ export const AppHeader: FunctionComponent = () : ReactElement => {
                 isOpen = { visibleErrorAlertModal }
                 type = "error"
                 header= "Error!"
-                content= "Something went wrong."
+                content= { errorMessage }
                 primaryButtonLabel= "OK"
                 onButtonClick={ ()=>{ setVisibleErrorAlertModal(false); } }
             />

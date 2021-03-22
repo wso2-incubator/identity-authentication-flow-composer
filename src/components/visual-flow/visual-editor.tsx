@@ -430,6 +430,11 @@ export const VisualEditor : FunctionComponent<VisualEditorProps> = (
 
             if (onFailurePath!==undefined) {
                 for (const failureStep of onFailurePath) {
+                    /**
+                     * Steps in the failure path is ignored in the visual flow.
+                     * TODO: Change this to add step to the visual flow as a failure step when the failure flow is
+                     *  supported.
+                     */
                     if (uniqueNodeIdList.indexOf(failureStep) === -1) {
                         uniqueNodeIdList.push(failureStep);
                     }

@@ -21,8 +21,14 @@ import { Handle, Position } from "react-flow-renderer";
 
 /**
  * Failure Node component.
+ * This is a custom node supported by react flow renderer library.
+ * See {@link https://reactflow.dev/docs/api/node-types/} for its documentation
+ * and {@link https://reactflow.dev/examples/custom-node/} for an example
  *
  * @return {React.ReactElement}
+ *
+ * TODO: This node can be used to indicate the failure path once failure flow support is added to the Authentication
+ *  Flow Composer.
  */
 export const FailureNode : FunctionComponent = () : ReactElement => {
 

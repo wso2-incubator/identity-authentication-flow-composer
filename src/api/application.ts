@@ -26,6 +26,9 @@ import { AuthenticationSequenceInterface } from "../models";
  * @param {string|null} appId
  *
  * @return {Promise<any>} A promise containing the response.
+ *
+ * TODO: Use this function to get the application details to show the existing authentication flow of the application
+ *  from the console when the Authentication Flow Composer opens
  */
 export const getApplicationDetails = (appId:string|null) : Promise<any> => {
     return axios.get(
@@ -78,6 +81,9 @@ export const getAuthenticators = (type?:string) : Promise<any> => {
  * Gets the templates.
  *
  * @return {Promise<any>} A promise containing the response.
+ *
+ * Current implementation use templates from templates.json
+ * TODO: Use this function to get the templates from the server.
  */
 export const getTemplates = () : Promise<any> => {
     return axios.get(

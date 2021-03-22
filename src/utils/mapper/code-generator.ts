@@ -19,6 +19,22 @@
 import generate from "@babel/generator";
 import { File } from "@babel/types";
 
+/**
+ * Generate code from and AST(Abstract Syntax Tree).
+ *
+ * {@link https://babeljs.io/docs/en/babel-generator}
+ *
+ * @example
+ * // returns "var a = 2"
+ * generateCodeFromAst({
+ *      "type": "File",
+ *      ...
+ *  });
+ *
+ * @param {File} ast - Abstract Syntax Tree.
+ *
+ * @return {string} Returns the javascript code.
+ */
 export const generateCodeFromAst = (ast : File): string => {
     try{
         return generate(ast).code?.replaceAll("function (","function(");

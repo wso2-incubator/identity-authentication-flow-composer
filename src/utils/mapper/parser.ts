@@ -19,6 +19,22 @@
 import { parse } from "@babel/parser";
 import { File } from "@babel/types";
 
+/**
+ * Generate code from and AST(Abstract Syntax Tree).
+ *
+ * {@link https://babeljs.io/docs/en/babel-parser}
+ *
+ * @example
+ * // returns {
+ *      "type": "File",
+ *      ...
+ *  }
+ * parseToAst("var a = 2");
+ *
+ * @param {string} value - Javascript code which need to parse to an AST.
+ *
+ * @return {File} Returns the Abstract Syntax Tree.
+ */
 export const parseToAst = (value:string) : File => {
     try {
         return parse(value);

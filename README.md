@@ -10,6 +10,13 @@
 
 <hr>
 
+## Documentation
+
+* [Introduction](docs/INTRODUCTION.md)
+* [Design](docs/DESIGN.md)
+* [Technology Selection](docs/TECHNOLOGIES.md)
+* [Future of the Project](docs/FUTURE.md)
+
 ## Getting Started
 
 ### Prerequisites

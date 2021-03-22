@@ -36,6 +36,28 @@ import { getConditionPathWithLastStep, getPathOfStep, getSuccessFailurePath } fr
 /**
  * Add a new step at the end of a the success or failure path of a step.
  *
+ * @example
+ * If we want to add a new step after step 2 in the flow, first get the path of step 2 in the AST using getPathOfStep.
+ * Then using that path get the success path(onSuccess) of the step 2 with getSuccessFailurePath.
+ * If it is null that means there is no `onSuccess` in the code of executeStep(2); Then,
+ *  If the path of the step 2 has one argument only that means it looks like executeStep(2);
+ *  Then have to add a ObjectExpression with a object property `onSuccess` as below into that as the second argument.
+ *      {
+ *          onSuccess: function(context) {
+ *              executeStep(3);
+ *          }
+ *      }
+ *  Else if the path of the step 2 has more arguments that means it looks like `executeStep(2, {});`
+ *  Then we have to add following node related to the following code segment as a object property into second argument.
+ *      onSuccess: function(context){
+ *          executeStep(3)
+ *      }
+ * But if the success path is not null that means the code looks like below we can just add executeStep(3) inside that.
+ *  executeStep(2, {
+ *      onSuccess: function(context) {
+ *      }
+ *  }
+ *
  * @param {File} ast
  * @param {string} currentStep - which step the new step is going to be added
  * @param {string} nextStep - New step
@@ -63,6 +85,11 @@ export const addSuccessFailureSteps =
 /**
  * Add a new step as a the success or failure step before a given step.
  *
+ * @example
+ * If we want to add an authentication step before step 2,
+ * First traverse the ast and shift all the steps from step 2 by +1 (2 -> 3, 3 -> 4...),
+ * and then add the new step as step 2 to the flow.
+ *
  * @param {File} ast
  * @param {string} beforeStep - which step the new step is going to be add before
  *
@@ -87,6 +114,13 @@ export const addSuccessFailureStepsBefore = (ast: File, beforeStep:string) : Fil
 /**
  * Add a new step as a the success or failure step before a given condition.
  *
+ * @example
+ * Suppose the flow has 2 steps, then a condition and another step after the condition.
+ * If we want to add a step before condition,
+ * First find the last step before condition(step 2) and the path of the condition using getConditionPathWithLastStep.
+ * Then shift all the steps after the condition (after step 2).
+ * Then using the path of the condition insert step 3 inside the condition.
+ *
  * @param {File} ast
  * @param {string} condition - which condition the new step is going to be add before
  *
@@ -108,6 +142,29 @@ export const addSuccessFailureStepsBeforeCondition = (ast: File, condition:strin
 
 /**
  * Add a condition to the ast after a given step with given params.
+ *
+ * @example
+ * If we want to add a condition after step 2 in the flow, first get the path of step 2 in the AST using getPathOfStep.
+ * Then using that path get the success path(onSuccess) of the step 2 with getSuccessFailurePath.
+ * If it is null that means there is no `onSuccess` in the code of executeStep(2); Then,
+ *  If the path of the step 2 has one argument only that means it looks like executeStep(2);
+ *  Then have to add a ObjectExpression with a object property `onSuccess` as below into that as the second argument.
+ *      {
+ *          onSuccess: function(context) {
+ *              if (hasRole) {}
+ *          }
+ *      }
+ *  Else if the path of the step 2 has more arguments that means it looks like `executeStep(2, {});`
+ *  Then we have to add following node related to the following code segment as a object property into second argument.
+ *      onSuccess: function(context){
+ *          if (hasRole) {}
+ *      }
+ * But if the success path is not null that means the code looks like below, we can just add if (hasRole){} inside that.
+ *  executeStep(2, {
+ *      onSuccess: function(context) {
+ *      }
+ *  }
+ * Finally, we need to unshift the code to add required variable definitions for conditions at the beginning of the code
  *
  * @param {File} ast
  * @param {string} step
@@ -135,12 +192,16 @@ export const addCondition = (ast:File, step:string, condition:string, params?:an
 
 /**
  * Add a condition to the ast before a given step with given params.
+ * If we want to add a condition before step first we need to get the path of that step.
+ * Then we can replace the node with that step with the condition and add that node inside the condition.
+ * @summary {wrap the step with the condition}
+ * Finally, we need to unshift the code to add required variable definitions for conditions at the beginning of the code
  *
  * @param {File} ast
  * @param {string} condition
  * @param {any|any[]} params
  * @param {string} beforeStep
- * 
+ *
  * @return {File} New ast
  */
 export const addConditionBeforeStep = (
@@ -156,6 +217,8 @@ export const addConditionBeforeStep = (
 
 /**
  * Add a step to a given condition in the ast.
+ * First traverse the ast to find IfStatements. Check whether the test.callee.name is matching with the condition.
+ * Then if it is matched push the step into the condition's consequent body.
  *
  * @param {File} ast
  * @param {string} condition
@@ -176,6 +239,9 @@ export const addStepToCondition = (ast:File, condition:string, step:string): Fil
 
 /**
  * Delete a given step from the ast.
+ * First find the path of the step in the AST.
+ * From that path get the parent and the key related to the step, and use delete parent[key]; to remove the node from
+ * the AST.
  *
  * @param {File} ast
  * @param {string} step
