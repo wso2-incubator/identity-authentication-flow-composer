@@ -81,7 +81,7 @@ try {
 
 - [ ] Templates, roles are hardcoded currently. Have to get them from the server.
 
-- [ ] Add an actual script (maybe from Hardrock setup) and see the behaviour.
+- [ ] Add an actual script and see the behaviour.
 
 ### Notes
 
