@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { BiCheckCircle, BiErrorCircle } from "react-icons/all";
+import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import { Modal } from "semantic-ui-react";
 
 /**

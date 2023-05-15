@@ -19,7 +19,7 @@
 import { File } from "@babel/types";
 import React, { FunctionComponent, ReactElement, useEffect, useState } from "react";
 import ReactFlow, { Background, BackgroundVariant, Controls, FlowElement } from "react-flow-renderer";
-import { AiFillWarning } from "react-icons/all";
+import { AiFillWarning } from "react-icons/ai";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { edgeTypes } from "./edges/edge-types";

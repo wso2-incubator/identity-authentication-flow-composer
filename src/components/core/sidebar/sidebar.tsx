@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { AiOutlineCopyrightCircle } from "react-icons/all";
+import { AiOutlineCopyrightCircle } from "react-icons/ai";
 import { Template } from "./sidebar-template";
 import templates from "../../../api/templates.json";
 

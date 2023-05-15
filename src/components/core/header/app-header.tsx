@@ -18,7 +18,7 @@
 
 import { File } from "@babel/types";
 import React, { FunctionComponent, ReactElement, useEffect, useState } from "react";
-import { VscDebugRestart } from "react-icons/all";
+import { VscDebugRestart } from "react-icons/vsc";
 import { shallowEqual, useSelector } from "react-redux";
 import { getAuthenticators, updateAuthenticationSequence } from "../../../api";
 import Icon from "../../../assets/asgardeo-logo.svg";

@@ -18,7 +18,7 @@
 
 import React, { FunctionComponent, ReactElement } from "react";
 import { Handle, Position } from "react-flow-renderer";
-import { AiOutlineCheckCircle } from "react-icons/all";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 /**
  * Done Node component.

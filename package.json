@@ -22,7 +22,7 @@
         "react-flow-renderer": "8.0.0",
         "react-icons": "^4.2.0",
         "react-redux": "^7.2.2",
-        "react-scripts": "4.0.2",
+        "react-scripts": "5.0.1",
         "redux-thunk": "^2.3.0",
         "semantic-ui-css": "^2.4.1",
         "semantic-ui-less": "^2.4.1",
@@ -35,7 +35,6 @@
         "build": "react-app-rewired build",
         "eject": "react-scripts eject",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-        "lint:ci": "eslint -c .eslintrc.js $(git diff --diff-filter=d --name-only | grep -E \"(.js$|.ts$|.jsx$|.tsx$)\")",
         "start": "react-app-rewired start",
         "test": "react-app-rewired test"
     },
@@ -62,15 +61,17 @@
         "@types/react-redux": "^7.1.16",
         "@typescript-eslint/eslint-plugin": "^4.15.2",
         "@typescript-eslint/parser": "^4.15.2",
+        "buffer": "^6.0.3",
         "customize-cra": "^1.0.0",
+        "customize-cra-less-loader": "^2.0.0",
         "eslint": "^7.20.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
-        "less": "^4.1.1",
-        "less-loader": "^7.3.0",
+        "process": "^0.11.10",
         "react-app-rewired": "^2.1.8",
-        "redux-devtools-extension": "^2.13.8"
+        "redux-devtools-extension": "^2.13.8",
+        "stream-browserify": "^3.0.0"
     }
 }

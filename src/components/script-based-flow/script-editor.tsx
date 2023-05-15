@@ -88,7 +88,7 @@ export const ScriptEditor: FunctionComponent<ScriptEditorProps> = (
             theme={ theme }
             options={
                 {
-                    selectOnLineNumbers: { selectOnLineNumbers }
+                    selectOnLineNumbers
                 }
             }
         />

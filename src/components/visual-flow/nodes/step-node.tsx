@@ -18,7 +18,7 @@
 
 import React, { FunctionComponent, ReactElement } from "react";
 import { Handle, Node, Position } from "react-flow-renderer";
-import { MdDelete, MdModeEdit } from "react-icons/all";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 import { shallowEqual, useSelector } from "react-redux";
 import { Popup } from "semantic-ui-react";
 import { AuthenticationStep } from "../../../models";

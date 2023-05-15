@@ -17,8 +17,33 @@
  *
  */
 
-const { addLessLoader, override } = require("customize-cra");
+const { override } = require("customize-cra");
+const addLessLoader = require("customize-cra-less-loader");
+const webpack = require("webpack");
 
 module.exports = override(
-    addLessLoader()
+  addLessLoader({
+    lessLoaderOptions: {
+      lessOptions: {
+        javascriptEnabled: true,
+      },
+    },
+  }),
+  (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      stream: require.resolve("stream-browserify"),
+      buffer: require.resolve("buffer"),
+    };
+    config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"];
+    config.plugins = [
+      ...config.plugins,
+      new webpack.ProvidePlugin({
+        process: "process/browser",
+        Buffer: ["buffer", "Buffer"],
+      }),
+    ];
+
+    return config;
+  }
 );

@@ -18,7 +18,9 @@
 
 import { File } from "@babel/types";
 import React, { FunctionComponent, ReactElement } from "react";
-import { BsGearFill, FiDatabase, FiLogIn, HiUsers } from "react-icons/all";
+import { BsGearFill } from "react-icons/bs";
+import { FiDatabase, FiLogIn } from "react-icons/fi";
+import { HiUsers } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import templates from "../../../api/templates.json";

@@ -18,7 +18,7 @@
 
 import React, { FunctionComponent, ReactElement } from "react";
 import { Handle, Position } from "react-flow-renderer";
-import { BiCircle } from "react-icons/all";
+import { BiCircle } from "react-icons/bi";
 
 /**
  * Connector Node component.

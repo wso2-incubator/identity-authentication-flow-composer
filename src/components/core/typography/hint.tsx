@@ -17,7 +17,7 @@
  */
 
 import React, { FunctionComponent, ReactElement } from "react";
-import { FaInfoCircle } from "react-icons/all";
+import { FaInfoCircle } from "react-icons/fa";
 
 /**
  * Hint Component Props.

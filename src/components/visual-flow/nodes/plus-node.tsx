@@ -18,7 +18,7 @@
 
 import React, { FunctionComponent, ReactElement } from "react";
 import { Handle, Position } from "react-flow-renderer";
-import { BsPlusCircle } from "react-icons/all";
+import { BsPlusCircle } from "react-icons/bs";
 
 /**
  * Plus Node component.

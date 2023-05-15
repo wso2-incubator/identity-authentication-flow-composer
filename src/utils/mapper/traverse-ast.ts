@@ -43,7 +43,7 @@ export const hasLoginRequest = (ast:File) : boolean => {
         });
     }
     catch(error){
-        throw new Error(error);
+        throw new Error(error as string);
     }
     return(request);
 };
@@ -68,7 +68,7 @@ export const getHarmfulOperations = (ast:File) : number[] => {
         });
     }
     catch(error){
-        throw new Error(error);
+        throw new Error(error as string);
     }
     return(harmfulLocationArray);
 };
@@ -117,7 +117,7 @@ export const getStepsInSuccessPath = (node: File, scope: Scope, parentPath: Node
             }
         }, scope, state, parentPath);
     } catch (error){
-        throw new Error(error);
+        throw new Error(error as string);
     }
     return successSteps;
 };
@@ -201,7 +201,7 @@ export const getCondition = (node : File, scope:Scope, parentPath:NodePath, stat
             }
         }, scope, state, parentPath);
     } catch (error) {
-        throw new Error(error);
+        throw new Error(error as string);
     }
     return {
         condition: condition,
