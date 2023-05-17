@@ -25,6 +25,7 @@ import { AuthenticationSequenceInterface, HttpMethod } from "../models";
  * @function
  * @returns {function} - Returns a function that calls AsgardeoSPAClient.getInstance().httpRequest.
  */
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const httpRequest = AsgardeoSPAClient.getInstance()!.httpRequest!.bind(AsgardeoSPAClient.getInstance());
 
 /**
@@ -104,7 +105,7 @@ export const getTemplates = (): Promise<any> => {
             Accept: "application/json"
         },
         method: HttpMethod.GET,
-        url: getApplicationsResourceEndpoints().templates,
+        url: getApplicationsResourceEndpoints().templates
 
     };
 
@@ -139,7 +140,7 @@ export const updateAuthenticationSequence = (
             Accept: "application/json"
         },
         method: HttpMethod.PATCH,
-        url: `${getApplicationsResourceEndpoints().applications}${appId}`,
+        url: `${getApplicationsResourceEndpoints().applications}${appId}`
     };
 
     return httpRequest(requestConfig)

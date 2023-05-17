@@ -22,28 +22,28 @@ const addLessLoader = require("customize-cra-less-loader");
 const webpack = require("webpack");
 
 module.exports = override(
-  addLessLoader({
-    lessLoaderOptions: {
-      lessOptions: {
-        javascriptEnabled: true,
-      },
-    },
-  }),
-  (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      stream: require.resolve("stream-browserify"),
-      buffer: require.resolve("buffer"),
-    };
-    config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"];
-    config.plugins = [
-      ...config.plugins,
-      new webpack.ProvidePlugin({
-        process: "process/browser",
-        Buffer: ["buffer", "Buffer"],
-      }),
-    ];
+    addLessLoader({
+        lessLoaderOptions: {
+            lessOptions: {
+                javascriptEnabled: true
+            }
+        }
+    }),
+    (config) => {
+        config.resolve.fallback = {
+            ...config.resolve.fallback,
+            stream: require.resolve("stream-browserify"),
+            buffer: require.resolve("buffer")
+        };
+        config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"];
+        config.plugins = [
+            ...config.plugins,
+            new webpack.ProvidePlugin({
+                process: "process/browser",
+                Buffer: ["buffer", "Buffer"]
+            })
+        ];
 
-    return config;
-  }
+        return config;
+    }
 );
