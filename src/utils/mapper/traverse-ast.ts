@@ -27,11 +27,12 @@ import * as syntax from "./adaptive-code-syntax";
  * {@link https://babeljs.io/docs/en/babel-traverse}
  *
  * @param {File} ast
- * 
+ *
  * @return {boolean}
  */
 export const hasLoginRequest = (ast:File) : boolean => {
     let request: boolean = false;
+
     try{
         traverse(ast, {
             VariableDeclarator(path: any){
@@ -41,10 +42,10 @@ export const hasLoginRequest = (ast:File) : boolean => {
                 }
             }
         });
+    } catch(error){
+        throw new Error("An error occurred while checking the login request in the script.");
     }
-    catch(error){
-        throw new Error(error as string);
-    }
+
     return(request);
 };
 
@@ -57,6 +58,7 @@ export const hasLoginRequest = (ast:File) : boolean => {
  */
 export const getHarmfulOperations = (ast:File) : number[] => {
     const harmfulLocationArray: number[] = [];
+
     try{
         traverse(ast, {
             ForStatement(path: any){
@@ -66,10 +68,10 @@ export const getHarmfulOperations = (ast:File) : number[] => {
                 harmfulLocationArray.push(path.node.body.loc.start.line);
             }
         });
+    } catch(error){
+        throw new Error("An error occurred while checking the harmful operations.");
     }
-    catch(error){
-        throw new Error(error as string);
-    }
+
     return(harmfulLocationArray);
 };
 
@@ -94,12 +96,13 @@ export const getHarmfulOperations = (ast:File) : number[] => {
  * @param {Scope} scope
  * @param {NodePath} parentPath
  * @param {Node} state
- * 
+ *
  * @return {any} Returns the condition if there is one and the steps inside the condition as onConditionSuccess and
  * steps without a condition as remainingSuccess.
  */
 export const getStepsInSuccessPath = (node: File, scope: Scope, parentPath: NodePath, state: Node): any => {
     let successSteps: Record<string, unknown>|undefined = undefined;
+
     try {
         traverse(node, {
             ObjectMember(path: any) {
@@ -117,8 +120,9 @@ export const getStepsInSuccessPath = (node: File, scope: Scope, parentPath: Node
             }
         }, scope, state, parentPath);
     } catch (error){
-        throw new Error(error as string);
+        throw new Error("An error occurred while checking the steps in the success path.");
     }
+
     return successSteps;
 };
 
@@ -144,6 +148,7 @@ export const getStepsInSuccessPath = (node: File, scope: Scope, parentPath: Node
 export const getStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePath, state:Node)
     : number[] => {
     const failSteps: number[] = [];
+
     traverse(ast, {
         ObjectMember(path: any){
             if (path.node.key.name===syntax.onFail){
@@ -152,6 +157,7 @@ export const getStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePa
             path.skip();
         }
     }, scope, state, parentPath);
+
     return failSteps;
 };
 
@@ -182,6 +188,7 @@ export const getStepsInFailurePath = (ast : File, scope:Scope, parentPath:NodePa
 export const getCondition = (node : File, scope:Scope, parentPath:NodePath, state:Node): any=> {
     let condition: string|undefined = undefined;
     let success: any[] = [];
+
     try {
         traverse(node, {
             CallExpression(path: any) {
@@ -201,8 +208,9 @@ export const getCondition = (node : File, scope:Scope, parentPath:NodePath, stat
             }
         }, scope, state, parentPath);
     } catch (error) {
-        throw new Error(error as string);
+        throw new Error("An error occurred while returning the condition.");
     }
+
     return {
         condition: condition,
         onSuccess: success
@@ -222,6 +230,7 @@ export const getCondition = (node : File, scope:Scope, parentPath:NodePath, stat
  */
 export const getConditionArguments = (ast : File): any => {
     let params: any[] = [];
+
     traverse(ast, {
         VariableDeclarator(path: any){
             if(path.node.id.name===syntax.roles){
@@ -231,6 +240,7 @@ export const getConditionArguments = (ast : File): any => {
             }
         }
     });
+
     return params;
 };
 
@@ -255,6 +265,7 @@ export const getConditionArguments = (ast : File): any => {
  */
 export const getCallExpressionsInPath = (node : File, scope:Scope, parentPath:NodePath, state:Node): any => {
     const steps: number[] = [];
+
     traverse(node, {
         CallExpression(path: any){
             if (path.node.callee.name===syntax.stepExecutor) {
@@ -263,6 +274,7 @@ export const getCallExpressionsInPath = (node : File, scope:Scope, parentPath:No
             path.skip();
         }
     }, scope, state, parentPath);
+
     return steps;
 };
 
@@ -308,6 +320,7 @@ export const getCallExpressionsInPath = (node : File, scope:Scope, parentPath:No
  */
 export const getAllStepsFromAst = (ast : File) : any[] => {
     const stepsArray: any[] = [];
+
     try{
         traverse(ast, {
             CallExpression(path: any){
@@ -339,6 +352,7 @@ export const getAllStepsFromAst = (ast : File) : any[] => {
  */
 export const getPathOfStep = (ast:File, step:string) : any => {
     let stepPath : any = {};
+
     traverse(ast, {
         CallExpression(path: any){
             if (path.node.callee.name===syntax.stepExecutor && path.node.arguments[0].value === +step) {
@@ -346,6 +360,7 @@ export const getPathOfStep = (ast:File, step:string) : any => {
             }
         }
     });
+
     return stepPath;
 };
 
@@ -354,8 +369,8 @@ export const getPathOfStep = (ast:File, step:string) : any => {
  * Traverse the AST and save the each step in a CallExpression into a variable lastStep.
  * Also traverse for the IfStatement by checking the test.callee.name.
  * If the condition found stop traversing the ast and returns the lastStep with the path of the condition.
- * 
- * Usage: 
+ *
+ * Usage:
  * Last step and the path of the condition is required when adding step before condition.
  *
  * @param {File} ast
@@ -366,6 +381,7 @@ export const getPathOfStep = (ast:File, step:string) : any => {
 export const getConditionPathWithLastStep = (ast:File, condition:string) : any[] => {
     let stepPath : any = {};
     let lastStep : any = 0;
+
     traverse(ast, {
         CallExpression(path: any){
             if (path.node.callee.name===syntax.stepExecutor) {
@@ -385,13 +401,14 @@ export const getConditionPathWithLastStep = (ast:File, condition:string) : any[]
             }
         }
     });
+
     return [lastStep, stepPath];
 };
 
 /**
  * Get the success or the failure path of a given step.
- * 
- * Usage: 
+ *
+ * Usage:
  * To check whether there is a success path (onSuccess property) when adding a step to a success path of the step.
  *
  * @param {File} ast
@@ -399,13 +416,14 @@ export const getConditionPathWithLastStep = (ast:File, condition:string) : any[]
  * @param {NodePath} parentPath
  * @param {Node} state
  * @param {string} type
- * 
+ *
  * @return {any} Returns the success path (onSuccess node)
  */
 export const getSuccessFailurePath = (
     ast : File, scope:Scope, parentPath:NodePath, state:Node, type:string
 ) : any => {
     let successPath : any = null;
+
     traverse(ast, {
         ObjectMember(path: any){
             const key = (type==="success") ? syntax.onSuccess : syntax.onFail;
@@ -415,5 +433,6 @@ export const getSuccessFailurePath = (
             path.skip();
         }
     }, scope, state, parentPath);
+
     return successPath;
 };
