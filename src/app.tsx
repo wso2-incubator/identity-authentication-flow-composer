@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2021-2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
- * WSO2 Inc. licenses this file to you under the Apache License,
+ * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,8 +16,9 @@
  * under the License.
  */
 
-import React, { FunctionComponent, ReactElement } from "react";
-import { AppHeader, ScriptBasedFlow, Sidebar, VisualFlow } from "./components";
+import { useAuthContext } from "@asgardeo/auth-react";
+import React, { FunctionComponent, ReactElement, useEffect } from "react";
+import { AppHeader, PreLoader, ScriptBasedFlow, Sidebar, VisualFlow } from "./components";
 
 /**
  * Main App component.
@@ -25,14 +26,36 @@ import { AppHeader, ScriptBasedFlow, Sidebar, VisualFlow } from "./components";
  * @return {React.ReactElement}
  */
 export const App: FunctionComponent = (): ReactElement => {
+    const { state, trySignInSilently, signIn } = useAuthContext();
+    const { isAuthenticated, isLoading } = state;
+
+    useEffect(() => {
+        if (isAuthenticated || isLoading) {
+            return;
+        }
+
+        trySignInSilently()
+            .then((response) => {
+                if (!response) {
+                    signIn();
+                }
+            })
+            .catch(() => {
+                signIn();
+            });
+    }, [isAuthenticated, isLoading, signIn, trySignInSilently]);
+
+    if (isLoading || !isAuthenticated) {
+        return <PreLoader />;
+    }
 
     return (
         <div className="app">
-            <AppHeader/>
+            <AppHeader />
             <div className="app-body">
-                <Sidebar/>
-                <VisualFlow/>
-                <ScriptBasedFlow/>
+                <Sidebar />
+                <VisualFlow />
+                <ScriptBasedFlow />
             </div>
         </div>
     );

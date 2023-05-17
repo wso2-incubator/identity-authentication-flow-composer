@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2021-2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
- * WSO2 Inc. licenses this file to you under the Apache License,
+ * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,7 @@
  * under the License.
  */
 
+import { AuthProvider } from "@asgardeo/auth-react";
 import React from "react";
 import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
@@ -27,7 +28,17 @@ import { store } from "./store";
 
 ReactDOM.render(
     <Provider store={ store }>
-        <App />
+        <AuthProvider
+            config={ {
+                baseUrl: process.env.REACT_APP_ASGARDEO_SERVICES_URL as string,
+                clientID: process.env.REACT_APP_ASGARDEO_CLIENT_ID as string,
+                scope: [ "openid","profile" ],
+                signInRedirectURL: process.env.REACT_APP_ASGARDEO_LOGIN_CALLBACK_URL as string,
+                signOutRedirectURL: process.env.REACT_APP_ASGARDEO_LOGOUT_CALLBACK_URL as string
+            } }
+        >
+            <App />
+        </AuthProvider>
     </Provider>,
     document.getElementById("root")
 );

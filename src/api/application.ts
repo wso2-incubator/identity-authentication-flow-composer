@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c) 2021-2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
  *
- * WSO2 Inc. licenses this file to you under the Apache License,
+ * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,9 +16,16 @@
  * under the License.
  */
 
-import axios from "axios";
+import { AsgardeoSPAClient } from "@asgardeo/auth-react";
 import { getApplicationsResourceEndpoints } from "../configs";
-import { AuthenticationSequenceInterface } from "../models";
+import { AuthenticationSequenceInterface, HttpMethod } from "../models";
+
+/**
+ * This is a wrapper function for the AsgardeoSPAClient's httpRequest function.
+ * @function
+ * @returns {function} - Returns a function that calls AsgardeoSPAClient.getInstance().httpRequest.
+ */
+const httpRequest = AsgardeoSPAClient.getInstance()!.httpRequest!.bind(AsgardeoSPAClient.getInstance());
 
 /**
  * Gets the application details.
@@ -30,23 +37,26 @@ import { AuthenticationSequenceInterface } from "../models";
  * TODO: Use this function to get the application details to show the existing authentication flow of the application
  *  from the console when the Authentication Flow Composer opens
  */
-export const getApplicationDetails = (appId:string|null) : Promise<any> => {
-    return axios.get(
-        `${getApplicationsResourceEndpoints().applications}${appId}`,
-        {
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+export const getApplicationDetails = (appId: string | null): Promise<any> => {
+    const requestConfig =  {
+        headers: {
+            Accept: "application/json"
+        },
+        method: HttpMethod.GET,
+        url: `${getApplicationsResourceEndpoints().applications}${appId}`
+    };
+
+    return httpRequest(requestConfig)
+        .then((response) => {
+            if (response?.status !== 200) {
+                return Promise.reject(new Error("Failed to update authentication sequence"));
             }
-        }
-    ).then((response) => {
-        if (response.status !== 200) {
-            return Promise.reject(new Error("Failed to update authentication sequence"));
-        }
-        return Promise.resolve(response);
-    }).catch((error) => {
-        return Promise.reject(error);
-    });
+
+            return Promise.resolve(response);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+        });
 };
 
 /**
@@ -56,25 +66,28 @@ export const getApplicationDetails = (appId:string|null) : Promise<any> => {
  *
  * @return {Promise<any>} A promise containing the response.
  */
-export const getAuthenticators = (type?:string) : Promise<any> => {
-    return axios.get(
-        type === "idp"
+export const getAuthenticators = (type?: string): Promise<any> => {
+    const requestConfig = {
+        headers: {
+            Accept: "application/json"
+        },
+        method: HttpMethod.GET,
+        url: type === "idp"
             ? getApplicationsResourceEndpoints().identityProviders
-            : getApplicationsResourceEndpoints().authenticators,
-        {
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+            : getApplicationsResourceEndpoints().authenticators
+    };
+
+    return httpRequest(requestConfig)
+        .then((response) => {
+            if (response?.status !== 200) {
+                return Promise.reject(new Error("Failed to update authentication sequence"));
             }
-        }
-    ).then((response) => {
-        if (response.status !== 200) {
-            return Promise.reject(new Error("Failed to update authentication sequence"));
-        }
-        return Promise.resolve(response);
-    }).catch((error) => {
-        return Promise.reject(error);
-    });
+
+            return Promise.resolve(response);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+        });
 };
 
 /**
@@ -85,23 +98,27 @@ export const getAuthenticators = (type?:string) : Promise<any> => {
  * Current implementation use templates from templates.json
  * TODO: Use this function to get the templates from the server.
  */
-export const getTemplates = () : Promise<any> => {
-    return axios.get(
-        getApplicationsResourceEndpoints().templates,
-        {
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+export const getTemplates = (): Promise<any> => {
+    const httpRequestConfig = {
+        headers: {
+            Accept: "application/json"
+        },
+        method: HttpMethod.GET,
+        url: getApplicationsResourceEndpoints().templates,
+
+    };
+
+    return httpRequest(httpRequestConfig)
+        .then((response) => {
+            if (response?.status !== 200) {
+                return Promise.reject(new Error("Failed to get templates"));
             }
-        }
-    ).then((response) => {
-        if (response.status !== 200) {
-            return Promise.reject(new Error("Failed to get templates"));
-        }
-        return Promise.resolve(response);
-    }).catch((error) => {
-        return Promise.reject(error);
-    });
+
+            return Promise.resolve(response);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+        });
 };
 
 /**
@@ -113,23 +130,27 @@ export const getTemplates = () : Promise<any> => {
  * @return {Promise<any>} A promise containing the response.
  */
 export const updateAuthenticationSequence = (
-    authenticationSequence: AuthenticationSequenceInterface, appId: string|null
-) : Promise<any> => {
-    return axios.patch(
-        `${getApplicationsResourceEndpoints().applications}${appId}`,
-        { authenticationSequence: authenticationSequence },
-        {
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+    authenticationSequence: AuthenticationSequenceInterface,
+    appId: string | null
+): Promise<any> => {
+    const requestConfig = {
+        body: { authenticationSequence },
+        headers: {
+            Accept: "application/json"
+        },
+        method: HttpMethod.PATCH,
+        url: `${getApplicationsResourceEndpoints().applications}${appId}`,
+    };
+
+    return httpRequest(requestConfig)
+        .then((response) => {
+            if (response?.status !== 200) {
+                return Promise.reject(new Error("Failed to update authentication sequence"));
             }
-        }
-    ).then((response) => {
-        if (response.status !== 200) {
-            return Promise.reject(new Error("Failed to update authentication sequence"));
-        }
-        return Promise.resolve(response);
-    }).catch((error) => {
-        return Promise.reject(error);
-    });
+
+            return Promise.resolve(response);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+        });
 };
